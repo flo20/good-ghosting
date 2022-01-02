@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage/HomePage";
 
 const App = () => {
 	return (
-		<div className="bg-gradient-to-r from-indigo-500">
+		<div>
 			<Routes>
 				<Route path="/" element={<HomePage />} />
 			</Routes>

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
+import styles from "./NavBar.module.scss";
 
 const NavBar = () => {
 	const [currentAccount, setCurrentAccount] = useState(null);
 	const [network, setNetwork] = useState(null);
+	const [displayChangeButton, setDisplayChangeButton] = useState(false);
 
 	const networkChainIdToName = () => {
 		const chainId = window.ethereum.networkVersion;
 
+		if (chainId !== "42") {
+			//console.log("Not Kovan");
+			setDisplayChangeButton(true);
+		}
 		//detect chainId and display network name
 		switch (chainId) {
 			case "1":
@@ -45,18 +53,32 @@ const NavBar = () => {
 		}
 	};
 
+	// useEffect(() => {
+	// 	networkChainIdToName();
+	// 	//connectWalletHandler();
+	// });
+
 	return (
-		<div>
-			<div>{network}</div>
-			<div>{currentAccount}</div>
-			<button
-				type="button"
-				onClick={connectWalletHandler}
-				className="rounded-full bg-sky-500/100"
-			>
-				Connect to wallet
-			</button>
-			<button type="button">Join our game on KOVAN</button>
+		<div className={styles.navContainer}>
+			<div>
+				<Link to="/">
+					<div className={styles.logo}>GoodGhosting</div>
+				</Link>
+			</div>
+			<div className={styles.navItems}>
+				<p className={styles.buttonChange}>
+					{displayChangeButton ? <SwitchNetwork /> : network}
+				</p>
+				<p className={styles.accountAddress}>{currentAccount}</p>
+
+				<button
+					type="button"
+					onClick={connectWalletHandler}
+					className={styles.walletButton}
+				>
+					Connect to wallet
+				</button>
+			</div>
 		</div>
 	);
 };
