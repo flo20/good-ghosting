@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
 import _ from "lodash";
 import styles from "./NavBar.module.scss";
+import logo from "../../assets/whiteghost.png";
 
 const NavBar = () => {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -58,7 +59,7 @@ const NavBar = () => {
 		<div className={styles.navContainer}>
 			<div>
 				<Link to="/">
-					<div className={styles.logo}>GoodGhosting</div>
+					<img src={logo} alt="" className={styles.logo} />
 				</Link>
 			</div>
 			<div className={styles.navItems}>
