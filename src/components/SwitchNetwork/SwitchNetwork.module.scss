@@ -1,39 +1,23 @@
-.switchContainer{
+.switchContainer {
   display: flex;
 }
 
 .switchButton {
-  // background-color: lightgray;
-  // border: 0;
-  // border-radius: 50px;
-  // cursor: pointer;
-  // height: 35px;
-  // position: relative;
-  // width: 150px;
-
-   @apply rounded-full border-2 border-violet-200 border-solid w-48 h-10 text-violet-50 hover:bg-violet-50/[0.3];
+  @apply rounded-full border-2 border-violet-200 border-solid w-48 h-10 text-violet-50 hover:bg-violet-50/[0.3] relative;
 }
 
 .pin {
-  background-color: white;
-  border-radius: 98px;
-  height: 30px;
-  left: 2px;
-  position: absolute;
-  top: 2px;
-  width: 60px;
-  transition: left ease .5s;
+  @apply bg-violet-50 h-9 w-8  border-2 rounded-full left-0 top-0 absolute transition duration-300 ease-linear;
 }
 
 .switchButton.on {
-  background-color: green;
+  @apply bg-violet-200;
 }
 
 .switchButton.on .pin {
-  left: 139px;
+  @apply left-3;
 }
 
-.switchInfo{
-    text-align: center;
-    padding-right: 10px;
+.switchInfo {
+  @apply text-center pl-7;
 }
