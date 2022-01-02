@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
+import _ from "lodash";
 import styles from "./NavBar.module.scss";
 
 const NavBar = () => {
@@ -46,17 +47,12 @@ const NavBar = () => {
 				method: "eth_requestAccounts",
 			});
 			const account = accounts[0];
-			setCurrentAccount(account);
+			setCurrentAccount(_.truncate(account, { length: 8 }));
 			networkChainIdToName();
 		} catch (err) {
 			console.error(err);
 		}
 	};
-
-	// useEffect(() => {
-	// 	networkChainIdToName();
-	// 	//connectWalletHandler();
-	// });
 
 	return (
 		<div className={styles.navContainer}>
@@ -66,18 +62,22 @@ const NavBar = () => {
 				</Link>
 			</div>
 			<div className={styles.navItems}>
-				<p className={styles.buttonChange}>
-					{displayChangeButton ? <SwitchNetwork /> : network}
-				</p>
-				<p className={styles.accountAddress}>{currentAccount}</p>
-
-				<button
-					type="button"
-					onClick={connectWalletHandler}
-					className={styles.walletButton}
-				>
-					Connect to wallet
-				</button>
+				{currentAccount ? (
+					<Fragment>
+						<p className={styles.buttonChange}>
+							{displayChangeButton ? <SwitchNetwork /> : network}
+						</p>
+						<p className={styles.accountAddress}>{currentAccount}</p>
+					</Fragment>
+				) : (
+					<button
+						type="button"
+						onClick={connectWalletHandler}
+						className={styles.walletButton}
+					>
+						Connect wallet
+					</button>
+				)}
 			</div>
 		</div>
 	);

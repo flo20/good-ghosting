@@ -11,11 +11,11 @@
 }
 
 .buttonChange {
-    @apply text-violet-50  pt-2;
+    @apply text-violet-50  pt-2 pr-4;
 }
 
 .accountAddress {
-    @apply rounded bg-slate-800 w-40 text-violet-50 pt-2;
+    @apply rounded bg-slate-800 w-20 text-violet-50 pt-2 text-center;
 }
 
 .walletButton {
