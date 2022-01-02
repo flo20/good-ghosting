@@ -1,23 +1,27 @@
 .switchContainer {
-  display: flex;
+  @apply flex;
 }
 
-.switchButton {
-  @apply rounded-full border-2 border-violet-200 border-solid w-48 h-10 text-violet-50 hover:bg-violet-50/[0.3] relative;
+button {
+  @apply rounded-full border-2 border-violet-200 border-solid w-44 h-10 text-violet-50 hover:bg-violet-50/[0.3] relative;
 }
 
 .pin {
   @apply bg-violet-50 h-9 w-8  border-2 rounded-full left-0 top-0 absolute transition duration-300 ease-linear;
 }
 
-.switchButton.on {
-  @apply bg-violet-200;
+button.on {
+  @apply bg-violet-400;
 }
 
-.switchButton.on .pin {
-  @apply left-3;
+button.on .pin {
+  @apply inset-x-36;
 }
 
 .switchInfo {
   @apply text-center pl-7;
+}
+
+.networkName{
+   @apply text-violet-50 p-2;
 }
