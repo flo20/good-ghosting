@@ -65,7 +65,11 @@ const NavBar = () => {
 				{currentAccount ? (
 					<Fragment>
 						<p className={styles.buttonChange}>
-							{displayChangeButton ? <SwitchNetwork /> : network}
+							{displayChangeButton ? (
+								<SwitchNetwork network={network} />
+							) : (
+								network
+							)}
 						</p>
 						<p className={styles.accountAddress}>{currentAccount}</p>
 					</Fragment>

@@ -1,12 +1,17 @@
+.switchContainer{
+  display: flex;
+}
+
 .switchButton {
-  background-color: lightgray;
-  border: 0;
-  border-radius: 50px;
-  cursor: pointer;
-  height: 35px;
-  position: relative;
-  width: 200px;
-  margin: 2rem;
+  // background-color: lightgray;
+  // border: 0;
+  // border-radius: 50px;
+  // cursor: pointer;
+  // height: 35px;
+  // position: relative;
+  // width: 150px;
+
+   @apply rounded-full border-2 border-violet-200 border-solid w-48 h-10 text-violet-50 hover:bg-violet-50/[0.3];
 }
 
 .pin {
