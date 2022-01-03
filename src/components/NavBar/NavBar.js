@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
 import _ from "lodash";
 import styles from "./NavBar.module.scss";
-import logo from "../../assets/whiteghost.png";
+import logo from "../../assets/logo2.png";
 
 const NavBar = () => {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -57,11 +57,9 @@ const NavBar = () => {
 
 	return (
 		<div className={styles.navContainer}>
-			<div>
 				<Link to="/">
 					<img src={logo} alt="" className={styles.logo} />
 				</Link>
-			</div>
 			<div className={styles.navItems}>
 				{currentAccount ? (
 					<Fragment>
