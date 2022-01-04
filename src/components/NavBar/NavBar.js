@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
 import _ from "lodash";
@@ -53,7 +53,25 @@ const NavBar = () => {
 		} catch (err) {
 			console.error(err);
 		}
-	};
+    };
+    
+    // const networkChanged = (chainId) => {
+	// 		console.log({ chainId });
+	// 	};
+
+		useEffect(() => {
+			if (window.ethereum) {
+				window.ethereum.on("chainChanged", () => {
+					window.location.reload();
+				});
+				window.ethereum.on("accountsChanged", () => {
+					window.location.reload();
+				});
+			}
+			// return () => {
+			// 	window.ethereum.removeListener("chainChanged", networkChanged);
+			// };
+		});
 
 	return (
 		<div className={styles.navContainer}>
@@ -63,13 +81,13 @@ const NavBar = () => {
 			<div className={styles.navItems}>
 				{currentAccount ? (
 					<Fragment>
-						<p className={styles.buttonChange}>
+						<div className={styles.buttonChange}>
 							{displayChangeButton ? (
 								<SwitchNetwork network={network} />
 							) : (
 								network
 							)}
-						</p>
+						</div>
 						<p className={styles.accountAddress}>{currentAccount}</p>
 					</Fragment>
 				) : (

@@ -3,15 +3,15 @@
 }
 
 button {
-  @apply rounded-full border-2 border-violet-200 border-solid w-44 h-10 text-violet-50 hover:bg-violet-50/[0.3] relative;
+  @apply rounded-full border-2 border-violet-200 border-solid w-44 h-8 text-violet-50 hover:bg-violet-50/[0.3] relative;
 }
 
 .pin {
-  @apply bg-violet-50 h-9 w-8  border-2 rounded-full left-0 top-0 absolute transition duration-300 ease-linear;
+  @apply bg-violet-50 h-7 w-7  border-2 rounded-full left-0 top-0 absolute transition duration-300 ease-linear;
 }
 
 button.on {
-  @apply bg-violet-400;
+  @apply bg-purple-400;
 }
 
 button.on .pin {
@@ -19,9 +19,9 @@ button.on .pin {
 }
 
 .switchInfo {
-  @apply text-center pl-7;
+  @apply text-center pl-7 ;
 }
 
 .networkName{
-   @apply text-violet-50 p-2;
+   @apply text-violet-50 p-4 text-xs;
 }

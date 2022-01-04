@@ -1,19 +1,20 @@
 import React from "react";
-//import Footer from '../../components/Footer/Footer'
+import styles from "./HomePage.module.scss";
 import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 
 const HomePage = () => {
 	return (
 		<div>
-			
 			<NavBar />
-			{/* <button
+			<button
 				type="button"
-				className="rounded-full bg-slate-900  h-10 text-zinc-50 hover:bg-slate-700"
+				//onClick={connectWalletHandler}
+				className={styles.walletButton}
 			>
-				<p className="p-3"> Join our game</p>
-			</button> */}
-			{/* <Footer/> */}
+				Join our game
+			</button>
+			<Footer/>
 		</div>
 	);
 };

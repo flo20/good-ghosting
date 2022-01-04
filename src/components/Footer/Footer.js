@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const Footer = () => {
-    return (
-        <div>
-            Footer
-        </div>
-    )
-}
+	return (
+		<div>
+			<p>No more boring saving</p>
+			<p>© 2021 GoodGhosting, all rights reserved</p>
+		</div>
+	);
+};
 
-export default Footer
+export default Footer;
