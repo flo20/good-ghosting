@@ -1,0 +1,22 @@
+.footerInfo {
+    @apply text-slate-600 fixed  w-full left-0 bottom-0 grid grid-cols-3 justify-items-center border-t h-16;
+}
+
+.footerLogo {
+    @apply w-28 opacity-50 text-slate-600 ;
+}
+.footerIconContainer {
+    @apply flex ;
+}
+
+.footerIcon {
+    @apply text-2xl m-1 hover:text-violet-200;
+}
+
+// .brandWrapper {
+//     @apply flex flex-col justify-center  pl-1;
+// }
+
+.tagLine {
+    @apply text-xs ;
+}
