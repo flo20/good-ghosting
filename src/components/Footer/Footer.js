@@ -1,7 +1,7 @@
 import React from "react";
 import { VscGithub } from "react-icons/vsc";
 import { RiDiscordLine, RiMediumLine } from "react-icons/ri";
-import { TiSocialTwitterCircular } from "react-icons/ti";
+import {FaTwitterSquare} from "react-icons/fa"
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.scss";
 import logo from "../../assets/logo2.png";
@@ -34,7 +34,7 @@ const Footer = () => {
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<TiSocialTwitterCircular className={styles.footerIcon} />
+					<FaTwitterSquare className={styles.footerIcon} />
 				</a>
 				<a
 					href="https://medium.com/goodghosting"
