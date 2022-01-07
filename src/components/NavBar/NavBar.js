@@ -23,7 +23,7 @@ const NavBar = () => {
 		//detect chainId and display network name
 		switch (chainId) {
 			case "1":
-				return setNetwork("Ethereum Main Network");
+				return setNetwork("Ethereum Main");
 			case "3":
 				return setNetwork("Ropsten Test Network");
 			case "4":
@@ -31,7 +31,7 @@ const NavBar = () => {
 			case "5":
 				return setNetwork("Goerli Test Network");
 			case "42":
-				return setNetwork("Kovan Test Network");
+				return setNetwork("Kovan");
 			default:
 				return setNetwork(network);
 		}
@@ -61,37 +61,36 @@ const NavBar = () => {
 		}
 	};
 
-	const switchNetwork = async () => {
-		try {
-			await window.ethereum.request({
-				method: "wallet_switchEthereumChain",
-				params: [{ chainId: "0x2a" }],
-			});
-		} catch (e) {
-			if (e.code === 4902) {
-				try {
-					await window.ethereum.request({
-						method: "wallet_addEthereumChain",
-						params: [
-							{
-								chainId: "0x2a",
-								chainName: "Ethereum Testnet Kovan",
-								nativeCurrency: {
-									name: "Kovan Ether",
-									symbol: "KOV", // 2-6 characters long
-									decimals: 18,
-								},
-								rpcUrls: ["https://kovan.poa.network"],
-							},
-						],
-					});
-				} catch (addError) {
-					console.error(addError);
-				}
-			}
-			// console.error(e)
-		}
-	};
+	// const switchNetwork = async () => {
+	// 	try {
+	// 		await window.ethereum.request({
+	// 			method: "wallet_switchEthereumChain",
+	// 			params: [{ chainId: "0x2a" }],
+	// 		});
+	// 	} catch (e) {
+	// 		if (e.code === 4902) {
+	// 			try {
+	// 				await window.ethereum.request({
+	// 					method: "wallet_addEthereumChain",
+	// 					params: [
+	// 						{
+	// 							chainId: "0x2a",
+	// 							chainName: "Ethereum Testnet Kovan",
+	// 							nativeCurrency: {
+	// 								name: "Kovan Ether",
+	// 								symbol: "KOV", // 2-6 characters long
+	// 								decimals: 18,
+	// 							},
+	// 							rpcUrls: ["https://kovan.poa.network"],
+	// 						},
+	// 					],
+	// 				});
+	// 			} catch (err) {
+	// 				console.error(err);
+	// 			}
+	// 		}
+	// 	}
+	// };
 
 	useEffect(() => {
 		if (window.ethereum) {
@@ -112,7 +111,11 @@ const NavBar = () => {
 			</Link>
 			<div className={styles.navItems}>
 				<div className={styles.buttonChange}>
-					{displayChangeButton ? <SwitchNetwork network={network} /> : network}
+					{displayChangeButton ? (
+						<SwitchNetwork network={network} />
+					) : (
+						<div className={styles.kovanNetwork}>{network}</div>
+					)}
 				</div>
 				<p className={styles.accountAddress}>{currentAccount}</p>
 
@@ -126,29 +129,6 @@ const NavBar = () => {
 					</button>
 				) : null}
 
-				<div onClick={switchNetwork} className={styles.accountAddress}>
-					Swtch
-				</div>
-				{/* {currentAccount ? (
-					<Fragment>
-						<div className={styles.buttonChange}>
-							{displayChangeButton ? (
-								<SwitchNetwork network={network} />
-							) : (
-								network
-							)}
-						</div>
-						<p className={styles.accountAddress}>{currentAccount}</p>
-					</Fragment>
-				) : (
-					<button
-						type="button"
-						onClick={connectWalletHandler}
-						className={styles.walletButton}
-					>
-						Connect wallet
-					</button>
-				)} */}
 			</div>
 		</div>
 	);

@@ -15,9 +15,13 @@
 }
 
 .accountAddress {
-    @apply rounded bg-slate-800 w-20 h-10 text-violet-50 pt-4 text-center;
+    @apply rounded bg-slate-800 w-20 text-violet-50 pt-4 text-center text-xs;
 }
 
 .walletButton {
     @apply rounded-full border-2 border-violet-200 border-solid w-40 h-10 text-violet-50 hover:bg-violet-50/[0.3];
+}
+
+.kovanNetwork {
+     @apply bg-purple-400 rounded-full border-2 border-violet-200 border-solid w-32 h-8 text-center p-px text-violet-50 hover:bg-violet-50/[0.3];
 }
