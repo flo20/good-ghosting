@@ -1,7 +1,5 @@
 import React from "react";
-import { VscGithub } from "react-icons/vsc";
-import { RiDiscordLine, RiMediumLine } from "react-icons/ri";
-import {FaTwitterSquare} from "react-icons/fa"
+import { FaTwitterSquare, FaMedium, FaGithub, FaDiscord } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.scss";
 import logo from "../../assets/logo2.png";
@@ -16,7 +14,7 @@ const Footer = () => {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<VscGithub className={styles.footerIcon} />
+						<FaGithub className={styles.footerIcon} />
 					</a>
 				</div>
 				<div>
@@ -25,7 +23,7 @@ const Footer = () => {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<RiDiscordLine className={styles.footerIcon} />
+						<FaDiscord className={styles.footerIcon} />
 					</a>
 				</div>
 
@@ -41,7 +39,7 @@ const Footer = () => {
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<RiMediumLine className={styles.footerIcon} />
+					<FaMedium className={styles.footerIcon} />
 				</a>
 			</div>
 			<div className={styles.brandWrapper}>
