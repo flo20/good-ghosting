@@ -3,7 +3,8 @@ import styles from "./SwitchNetwork.module.scss";
 
 const SwitchNetwork = ({ network }) => {
 	const [on, setOnState] = useState(false);
-	const toggle = () => setOnState(!on);
+	const [canceledSwitchRequest, setCanceledSwitchRequest] = useState(false);
+	const toggle = () => setOnState(true);
 
 	const handleKovanSwitch = async () => {
 		try {
@@ -33,6 +34,15 @@ const SwitchNetwork = ({ network }) => {
 					console.error(err);
 				}
 			}
+
+			if (e.code === 4001) {
+				try {
+					setOnState(false);
+					setCanceledSwitchRequest(true);
+				} catch (err) {
+					console.error(err);
+				}
+			}
 		}
 	};
 
@@ -41,7 +51,11 @@ const SwitchNetwork = ({ network }) => {
 			<button className={on ? styles.on : styles.off} onClick={toggle}>
 				<span className={styles.pin} onClick={handleKovanSwitch} />
 				<div className={styles.switchInfo}>
-					{on ? " " : <p className={styles.networkSwitch}>Switch to Kovan</p>}
+					{on && canceledSwitchRequest ? (
+						" "
+					) : (
+						<p className={styles.networkSwitch}>Switch to Kovan</p>
+					)}
 					{on ? "" : <p className={styles.networkName}>{network}</p>}
 				</div>
 			</button>

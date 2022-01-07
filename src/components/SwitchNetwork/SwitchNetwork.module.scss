@@ -14,12 +14,8 @@ button.on {
   @apply bg-purple-400;
 }
 
-button.off{
-  @apply bg-slate-600
-}
-
 button.on .pin {
-  @apply inset-x-36 left-28 ;
+  @apply inset-x-36 left-28;
 }
 
 .switchInfo {
@@ -31,5 +27,5 @@ button.on .pin {
 }
 
 .networkSwitch {
-  @apply text-xs p-0.5 ;
+  @apply text-xs p-0.5;
 }

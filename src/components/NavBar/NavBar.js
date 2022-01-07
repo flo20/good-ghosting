@@ -14,10 +14,7 @@ const NavBar = () => {
 	const networkChainIdToName = () => {
 		const chainId = window.ethereum.networkVersion;
 
-		// console.log({chainId});
-
 		if (chainId !== "42") {
-			//console.log("Not Kovan");
 			setDisplayChangeButton(true);
 		}
 		//detect chainId and display network name
@@ -25,11 +22,11 @@ const NavBar = () => {
 			case "1":
 				return setNetwork("Ethereum Main");
 			case "3":
-				return setNetwork("Ropsten Test Network");
+				return setNetwork("Ropsten");
 			case "4":
-				return setNetwork("Rinkeby Test Network");
+				return setNetwork("Rinkeby");
 			case "5":
-				return setNetwork("Goerli Test Network");
+				return setNetwork("Goerli");
 			case "42":
 				return setNetwork("Kovan");
 			default:
@@ -38,9 +35,7 @@ const NavBar = () => {
 	};
 
 	const connectWalletHandler = async () => {
-		//console.log("Connect");
 		const { ethereum } = window;
-		// console.log(ethereum);
 
 		if (!ethereum) {
 			alert(
@@ -61,37 +56,6 @@ const NavBar = () => {
 		}
 	};
 
-	// const switchNetwork = async () => {
-	// 	try {
-	// 		await window.ethereum.request({
-	// 			method: "wallet_switchEthereumChain",
-	// 			params: [{ chainId: "0x2a" }],
-	// 		});
-	// 	} catch (e) {
-	// 		if (e.code === 4902) {
-	// 			try {
-	// 				await window.ethereum.request({
-	// 					method: "wallet_addEthereumChain",
-	// 					params: [
-	// 						{
-	// 							chainId: "0x2a",
-	// 							chainName: "Ethereum Testnet Kovan",
-	// 							nativeCurrency: {
-	// 								name: "Kovan Ether",
-	// 								symbol: "KOV", // 2-6 characters long
-	// 								decimals: 18,
-	// 							},
-	// 							rpcUrls: ["https://kovan.poa.network"],
-	// 						},
-	// 					],
-	// 				});
-	// 			} catch (err) {
-	// 				console.error(err);
-	// 			}
-	// 		}
-	// 	}
-	// };
-
 	useEffect(() => {
 		if (window.ethereum) {
 			window.ethereum.on("chainChanged", () => {
@@ -107,7 +71,7 @@ const NavBar = () => {
 	return (
 		<div className={styles.navContainer}>
 			<Link to="/">
-				<img src={logo} alt="" className={styles.logo} />
+				<img src={logo} alt="logo" className={styles.logo} />
 			</Link>
 			<div className={styles.navItems}>
 				<div className={styles.buttonChange}>
@@ -128,7 +92,6 @@ const NavBar = () => {
 						Connect wallet
 					</button>
 				) : null}
-
 			</div>
 		</div>
 	);
