@@ -1,4 +1,4 @@
-import React, { Fragment, useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
 import _ from "lodash";
@@ -9,9 +9,12 @@ const NavBar = () => {
 	const [currentAccount, setCurrentAccount] = useState(null);
 	const [network, setNetwork] = useState(null);
 	const [displayChangeButton, setDisplayChangeButton] = useState(false);
+	const [walletIsConnected, setWalletConnected] = useState(false);
 
 	const networkChainIdToName = () => {
 		const chainId = window.ethereum.networkVersion;
+
+		// console.log({chainId});
 
 		if (chainId !== "42") {
 			//console.log("Not Kovan");
@@ -40,7 +43,9 @@ const NavBar = () => {
 		// console.log(ethereum);
 
 		if (!ethereum) {
-			alert("Please install Metamask!");
+			alert(
+				"Please install Metamask!You can install at: https://metamask.io/download.html"
+			);
 		}
 
 		try {
@@ -49,37 +54,82 @@ const NavBar = () => {
 			});
 			const account = accounts[0];
 			setCurrentAccount(_.truncate(account, { length: 8 }));
+			setWalletConnected(true);
 			networkChainIdToName();
 		} catch (err) {
 			console.error(err);
 		}
-    };
-    
-    // const networkChanged = (chainId) => {
-	// 		console.log({ chainId });
-	// 	};
+	};
 
-		useEffect(() => {
-			if (window.ethereum) {
-				window.ethereum.on("chainChanged", () => {
-					window.location.reload();
-				});
-				window.ethereum.on("accountsChanged", () => {
-					window.location.reload();
-				});
+	const switchNetwork = async () => {
+		try {
+			await window.ethereum.request({
+				method: "wallet_switchEthereumChain",
+				params: [{ chainId: "0x2a" }],
+			});
+		} catch (e) {
+			if (e.code === 4902) {
+				try {
+					await window.ethereum.request({
+						method: "wallet_addEthereumChain",
+						params: [
+							{
+								chainId: "0x2a",
+								chainName: "Ethereum Testnet Kovan",
+								nativeCurrency: {
+									name: "Kovan Ether",
+									symbol: "KOV", // 2-6 characters long
+									decimals: 18,
+								},
+								rpcUrls: ["https://kovan.poa.network"],
+							},
+						],
+					});
+				} catch (addError) {
+					console.error(addError);
+				}
 			}
-			// return () => {
-			// 	window.ethereum.removeListener("chainChanged", networkChanged);
-			// };
-		});
+			// console.error(e)
+		}
+	};
+
+	useEffect(() => {
+		if (window.ethereum) {
+			window.ethereum.on("chainChanged", () => {
+				window.location.reload();
+			});
+			window.ethereum.on("accountsChanged", () => {
+				window.location.reload();
+			});
+		}
+		connectWalletHandler();
+	});
 
 	return (
 		<div className={styles.navContainer}>
-				<Link to="/">
-					<img src={logo} alt="" className={styles.logo} />
-				</Link>
+			<Link to="/">
+				<img src={logo} alt="" className={styles.logo} />
+			</Link>
 			<div className={styles.navItems}>
-				{currentAccount ? (
+				<div className={styles.buttonChange}>
+					{displayChangeButton ? <SwitchNetwork network={network} /> : network}
+				</div>
+				<p className={styles.accountAddress}>{currentAccount}</p>
+
+				{!walletIsConnected && !currentAccount ? (
+					<button
+						type="button"
+						onClick={connectWalletHandler}
+						className={styles.walletButton}
+					>
+						Connect wallet
+					</button>
+				) : null}
+
+				<div onClick={switchNetwork} className={styles.accountAddress}>
+					Swtch
+				</div>
+				{/* {currentAccount ? (
 					<Fragment>
 						<div className={styles.buttonChange}>
 							{displayChangeButton ? (
@@ -98,7 +148,7 @@ const NavBar = () => {
 					>
 						Connect wallet
 					</button>
-				)}
+				)} */}
 			</div>
 		</div>
 	);
