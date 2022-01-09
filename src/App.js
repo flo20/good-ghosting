@@ -8,8 +8,8 @@ const App = () => {
 		<div>
 			<Routes>
 				<Route path="/" element={<HomePage />} />
-        {/* <Route path="/not-found" element={<NotFound />} />
-        <Route path="*" element={<Navigate replace to ="/not-found"/>}/> */}
+				<Route path="/not-found" element={<NotFound />} />
+				<Route path="*" element={<Navigate replace to="/not-found" />} />
 			</Routes>
 		</div>
 	);

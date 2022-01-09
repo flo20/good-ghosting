@@ -54,8 +54,9 @@ const Footer = () => {
 					href="https://docs.goodghosting.com/docs/"
 					target="_blank"
 					rel="noopener noreferrer"
+					className={styles.checkDocs}
 				>
-					Docs
+					Check Our Documentation
 				</a>
 			</div>
 		</div>

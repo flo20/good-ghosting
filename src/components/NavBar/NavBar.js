@@ -57,6 +57,7 @@ const NavBar = () => {
 	};
 
 	useEffect(() => {
+		connectWalletHandler()
 		if (window.ethereum) {
 			window.ethereum.on("chainChanged", () => {
 				window.location.reload();
@@ -65,8 +66,18 @@ const NavBar = () => {
 				window.location.reload();
 			});
 		}
-		connectWalletHandler();
 	});
+	// useEffect(() => {
+	// 	if (window.ethereum) {
+	// 		window.ethereum.on("chainChanged", () => {
+	// 			window.location.reload();
+	// 		});
+	// 		window.ethereum.on("accountsChanged", () => {
+	// 			window.location.reload();
+	// 		});
+	// 	}
+	// 	//connectWalletHandler();
+	// });
 
 	return (
 		<div className={styles.navContainer}>
@@ -78,7 +89,16 @@ const NavBar = () => {
 					{displayChangeButton ? (
 						<SwitchNetwork network={network} />
 					) : (
-						<div className={styles.kovanNetwork}>{network}</div>
+						<div className={styles.kovanNetwork}>
+							{network}
+							{/* <button
+								type="button"
+								//onClick={connectWalletHandler}
+								className={styles.walletButton}
+							>
+								Join our game
+							</button> */}
+						</div>
 					)}
 				</div>
 				<p className={styles.accountAddress}>{currentAccount}</p>

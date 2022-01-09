@@ -3,20 +3,17 @@
 }
 
 .footerLogo {
-    @apply w-28 opacity-50 text-slate-600 ;
+    @apply w-28 opacity-50 text-slate-600;
 }
 .footerIconContainer {
-    @apply flex ;
+    @apply flex;
 }
 
 .footerIcon {
     @apply text-xl m-1.5 hover:text-violet-200;
 }
 
-// .brandWrapper {
-//     @apply flex flex-col justify-center  pl-1;
-// }
-
-.tagLine {
-    @apply text-xs ;
+.tagLine,
+.checkDocs {
+    @apply text-xs hover:text-violet-200;
 }
