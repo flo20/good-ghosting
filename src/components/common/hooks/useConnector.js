@@ -6,20 +6,30 @@ const useConnector = () => {
 	const [data, setData] = useState(null);
 
 	const initConnector = async () => {
-		const web3 = new Web3("https://kovan.poa.network");
-		const ghostAddress = "0xc69a569405eae312ca13c2ed85a256fbe4992a35";
-		const contract = new web3.eth.Contract(ghostContract.abi, ghostAddress);
-		const response = await contract.methods.joinGame().call();
-		console.log("response ", response);
+		try {
+			const web3 = new Web3("https://kovan.poa.network");
+			const ghostAddress = process.env.REACT_APP_GHOST_ADDRESS;
+			const contract = new web3.eth.Contract(ghostContract.abi, ghostAddress);
+			const response = await contract.methods.joinGame().call();
+			console.log("response ", response);
 
-		setData(response);
+			setData(response);
+
+			const addresses = web3.eth.getAccounts();
+			console.log("addresses", addresses);
+			contract.methods.setData(10).send({
+				from: addresses[0],
+				gas: 100,
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	useEffect(() => {
 		initConnector();
-	}, []);
-
-	return { data };
+		return { data };
+	}, [data]);
 };
 
 // function useConnector() {

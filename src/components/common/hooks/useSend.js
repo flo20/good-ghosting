@@ -4,7 +4,6 @@ const useSend = () => {
 
     //connect to metamask and send 1 dai to contract address
     const sendDai = () => {
-        
     }
     
     const withdrawDai = () => {
