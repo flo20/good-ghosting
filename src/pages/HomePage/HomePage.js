@@ -10,7 +10,7 @@ const HomePage = () => {
 	const [showJoinModal, setShowJoinModal] = useState(false);
 
 	//const { data } =
-	//useConnect();
+	useConnect();
 	//console.log(data);
 
 	return (

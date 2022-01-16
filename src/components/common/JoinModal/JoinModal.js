@@ -3,18 +3,23 @@ import styles from "./JoinModal.module.scss";
 import { FaWindowClose } from "react-icons/fa";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
-	//const joinGameHandler = () => {};
+	//const approveSingleDepositHandler = () => {};
 	if (!showJoinModal) return null;
 	return (
 		<div className={styles.modalWrapper}>
 			<div className={styles.confirmationBox}>
 				<FaWindowClose
 					onClick={() => {
-						setShowJoinModal();
+						setShowJoinModal(false);
 					}}
 					className={styles.closeModal}
 				/>
-				<button>Add</button>
+				<button className={styles.approveButton}>
+					Approve single deposit
+				</button>
+				<button className={styles.approveButton}>
+					Approve total deposit amount
+				</button>
 			</div>
 		</div>
 	);
