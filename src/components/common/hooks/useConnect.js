@@ -1,62 +1,63 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import ghostContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
+//import ghostContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
 import daiSmartContract from "../../../assets/abi/ABI-dai.json";
 
 const useConnect = () => {
+	const [approve, setApprove] = useState(false);
 	//connecting to ethereum blockchain
 	const initConnector = async () => {
 		try {
 			const customHttpProvider = new ethers.providers.Web3Provider(
 				window.ethereum
 			);
-			//const blockNumber = await customHttpProvider.getBlockNumber();
-			//console.log("blockNumber", blockNumber);
-			//console.log("signer", signer);
-			//const connectSigner = signer.connect()
+
 			const signer = customHttpProvider.getSigner();
-			const ghostAddress = process.env.REACT_APP_GHOST_ADDRESS;
-			//const gasPrice = customHttpProvider.getGasPrice();
-			//console.log("gasPrice", gasPrice);
+			const daiContractAddress = "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD";
+			const userAddress = "0xc2B9Cd74b835F11F300b4C46382a20C7e17AC8Ea";
 
 			const daiContract = new ethers.Contract(
-				ghostAddress, //dai address
+				daiContractAddress, //dai address
 				daiSmartContract.abi, //dia
 				customHttpProvider
-            );
-            
-            const goodGhostAddress = process.env.REACT_APP_GHOST_ADDRESS
-			//console.log("wallet", contract);
-			//check the ammount of thdai the user has ,
-          let singerAddress = await signer.getAddress();
-			// let balance = await daiContract.balanceOf(singerAddress);
-			// let readableBalance = ethers.utils.formatUnits(balance, 18);
-			//if readableBalance > 1 , then send transaction
+			);
+			const daiWithSigner = daiContract.connect(signer);
 
 			//dai set up
-			const daiWithSigner = daiContract.connect(signer);
 
 			// Each DAI has 18 decimal places
 			const dai = ethers.utils.parseUnits("1.0", 18);
-	// Send 1 DAI to "ricmoo.firefly.eth"
-            console.log()
-		 const tx = daiWithSigner.transferFrom(singerAddress,goodGhostAddress, dai);
 
+			const signerAddress = () => {
+				signer.getAddress();
+			};
+			console.log("signerAddress", signerAddress);
+
+			const approval = await daiWithSigner.approve(userAddress, dai);
+			const tx = await daiWithSigner.transferFrom(
+				userAddress,
+				daiContractAddress,
+				dai
+			);
 			// Receive an event when ANY transfer occurs
-			daiContract.on("Approval", (from, to, amount, event) => {
-				console.log(`${from} sent ${ethers.utils.formatEther(amount)} to ${to}`);
-				// The event object contains the verbatim log data, the
-				// EventFragment and functions to fetch the block,
-				// transaction and receipt and event functions
+			approval.on("Approval", (from, to, amount, event) => {
+				console.log(
+					`${from} sent ${ethers.utils.formatEther(amount)} to ${to}`
+				);
+				setApprove(true);
 			});
 			//console.log(sendDai);
+
+			daiContract.on("Transfer", (from, to, amount, event) => {
+				console.log("transferred dai");
+			});
 		} catch (error) {
 			console.error(error);
 		}
 	};
-	useEffect(() => {
+	//useEffect(() => {
 		initConnector();
-	}, []);
+	//}, []);
 };
 
 export default useConnect;
