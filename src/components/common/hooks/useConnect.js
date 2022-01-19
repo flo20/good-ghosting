@@ -34,11 +34,7 @@ const useConnect = () => {
 			console.log("signerAddress", signerAddress);
 
 			const approval = await daiWithSigner.approve(userAddress, dai);
-			const tx = await daiWithSigner.transferFrom(
-				userAddress,
-				daiContractAddress,
-				dai
-			);
+			await daiWithSigner.transferFrom(userAddress, daiContractAddress, dai);
 			// Receive an event when ANY transfer occurs
 			approval.on("Approval", (from, to, amount, event) => {
 				console.log(
@@ -55,9 +51,8 @@ const useConnect = () => {
 			console.error(error);
 		}
 	};
-	//useEffect(() => {
-		initConnector();
-	//}, []);
+
+	return { approve, initConnector };
 };
 
 export default useConnect;

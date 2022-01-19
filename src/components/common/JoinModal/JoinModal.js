@@ -1,9 +1,14 @@
 import React from "react";
 import styles from "./JoinModal.module.scss";
 import { FaWindowClose } from "react-icons/fa";
+import useConnect from "../hooks/useConnect";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 	//const approveSingleDepositHandler = () => {};
+	const { approve, initConnector } = useConnect();
+
+	//const approveSingleDepo = () => {};
+
 	if (!showJoinModal) return null;
 	return (
 		<div className={styles.modalWrapper}>
@@ -14,7 +19,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 					}}
 					className={styles.closeModal}
 				/>
-				<button className={styles.approveButton}>
+				<button className={styles.approveButton} onClick={initConnector}>
 					Approve single deposit
 				</button>
 				<button className={styles.approveButton}>
