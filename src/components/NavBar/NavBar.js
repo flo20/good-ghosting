@@ -5,7 +5,7 @@ import _ from "lodash";
 import styles from "./NavBar.module.scss";
 import logo from "../../assets/logo2.png";
 
-const NavBar = () => {
+const NavBar = ({ onAccountSelected }) => {
 	const [currentAccount, setCurrentAccount] = useState(null);
 	const [network, setNetwork] = useState(null);
 	const [displayChangeButton, setDisplayChangeButton] = useState(false);
@@ -49,6 +49,7 @@ const NavBar = () => {
 			});
 			const account = accounts[0];
 			setCurrentAccount(_.truncate(account, { length: 8 }));
+			onAccountSelected(account);
 			setWalletConnected(true);
 			networkChainIdToName();
 		} catch (err) {
@@ -57,7 +58,7 @@ const NavBar = () => {
 	};
 
 	useEffect(() => {
-		connectWalletHandler()
+		connectWalletHandler();
 		if (window.ethereum) {
 			window.ethereum.on("chainChanged", () => {
 				window.location.reload();
@@ -67,17 +68,7 @@ const NavBar = () => {
 			});
 		}
 	});
-	// useEffect(() => {
-	// 	if (window.ethereum) {
-	// 		window.ethereum.on("chainChanged", () => {
-	// 			window.location.reload();
-	// 		});
-	// 		window.ethereum.on("accountsChanged", () => {
-	// 			window.location.reload();
-	// 		});
-	// 	}
-	// 	//connectWalletHandler();
-	// });
+	
 
 	return (
 		<div className={styles.navContainer}>

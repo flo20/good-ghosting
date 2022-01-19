@@ -1,10 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { ethers } from "ethers";
 //import ghostContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
 import daiSmartContract from "../../../assets/abi/ABI-dai.json";
+import { UserContext } from "../../../App";
 
 const useConnect = () => {
 	const [approve, setApprove] = useState(false);
+	const [joinedGame, setJoinedGame] = useState(false);
+
+	const userAddress = useContext(UserContext);
 	//connecting to ethereum blockchain
 	const initConnector = async () => {
 		try {
@@ -13,8 +17,7 @@ const useConnect = () => {
 			);
 
 			const signer = customHttpProvider.getSigner();
-			const daiContractAddress = "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD";
-			const userAddress = "0xc2B9Cd74b835F11F300b4C46382a20C7e17AC8Ea";
+			const daiContractAddress = process.env.REACT_APP_DAI_CONTRACT_ADDRESS;
 
 			const daiContract = new ethers.Contract(
 				daiContractAddress, //dai address
@@ -45,6 +48,7 @@ const useConnect = () => {
 			//console.log(sendDai);
 
 			daiContract.on("Transfer", (from, to, amount, event) => {
+				setJoinedGame(true);
 				console.log("transferred dai");
 			});
 		} catch (error) {
@@ -52,7 +56,7 @@ const useConnect = () => {
 		}
 	};
 
-	return { approve, initConnector };
+	return { approve, joinedGame, initConnector };
 };
 
 export default useConnect;
