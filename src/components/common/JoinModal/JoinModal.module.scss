@@ -7,13 +7,17 @@
 }
 
 .approveButton {
-    @apply text-white bg-fuchsia-900 rounded-full   border-solid w-72  hover:bg-fuchsia-700 relative p-2 m-3;
+    background-color: #0f0f27;
+    @apply text-white  rounded-full   border-solid w-72  hover:bg-slate-700 relative p-2 m-3;
 }
 
 .closeModal {
-    @apply absolute text-fuchsia-900  top-1.5 right-1.5 hover:text-fuchsia-600 cursor-pointer text-2xl;
+    color: #0f0f27;
+    @apply absolute  top-1.5 right-1.5 hover:text-slate-700 cursor-pointer text-2xl;
 }
 
-.approveHeading{
-    @apply text-fuchsia-900 font-black p-4 text-2xl
+.approveHeading {
+    color: #0f0f27;
+    //@function text-fuchsia-900 font-black p-4 text-2xl
+    @apply font-black p-4 text-2xl;
 }

@@ -45,6 +45,7 @@ const NavBar = ({ onAccountSelected }) => {
 			);
 		}
 
+		//if it is not connected to the provider
 		try {
 			const accounts = await ethereum.request({
 				method: "eth_requestAccounts",
@@ -62,9 +63,9 @@ const NavBar = ({ onAccountSelected }) => {
 	useEffect(() => {
 		connectWalletHandler();
 		if (window.ethereum) {
-			window.ethereum.on("chainChanged", () => {
-				window.location.reload();
-			});
+			window.ethereum.on("chainChanged", (_chainId) =>
+				window.location.reload()
+			);
 			window.ethereum.on("accountsChanged", () => {
 				window.location.reload();
 			});
@@ -77,34 +78,36 @@ const NavBar = ({ onAccountSelected }) => {
 				<img src={logo} alt="logo" className={styles.logo} />
 			</Link>
 			<div className={styles.navItems}>
-				<div className={styles.buttonChange}>
-					{displayChangeButton ? (
-						<SwitchNetwork network={network} />
-					) : (
-						<Fragment>
-							<div className={styles.joinGameWrapper}>
-								{/* display join game button when network is on kovan  */}
-								{network === "Kovan" && (
-									<button
-										type="button"
-										onClick={() => setShowJoinModal(true)}
-										className={styles.walletButton}
-									>
-										Join our game
-									</button>
-								)}
-								<JoinModal
-									showJoinModal={showJoinModal}
-									setShowJoinModal={setShowJoinModal}
-								/>
-							</div>
-							<div className={styles.kovanNetwork}>{network}</div>
-						</Fragment>
-					)}
-				</div>
-				<p className={styles.accountAddress}>{currentAccount}</p>
-
-				{!walletIsConnected && !currentAccount ? (
+				{walletIsConnected && currentAccount ? (
+					<Fragment>
+						<div className={styles.buttonChange}>
+							{displayChangeButton ? (
+								<SwitchNetwork network={network} />
+							) : (
+								<Fragment>
+									<div className={styles.joinGameWrapper}>
+										{/* display join game button when network is on kovan  */}
+										{network === "Kovan" && (
+											<button
+												type="button"
+												onClick={() => setShowJoinModal(true)}
+												className={styles.walletButton}
+											>
+												Join our game
+											</button>
+										)}
+										<JoinModal
+											showJoinModal={showJoinModal}
+											setShowJoinModal={setShowJoinModal}
+										/>
+									</div>
+									<div className={styles.kovanNetwork}>{network}</div>
+								</Fragment>
+							)}
+						</div>
+						<p className={styles.accountAddress}>{currentAccount}</p>
+					</Fragment>
+				) : (
 					<button
 						type="button"
 						onClick={connectWalletHandler}
@@ -112,7 +115,7 @@ const NavBar = ({ onAccountSelected }) => {
 					>
 						Connect wallet
 					</button>
-				) : null}
+				)}
 			</div>
 			{/* <div className={styles.navItems}>
 				<div className={styles.buttonChange}>
