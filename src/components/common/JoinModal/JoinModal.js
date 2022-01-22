@@ -5,7 +5,8 @@ import useConnect from "../hooks/useConnect";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 	//const approveSingleDepositHandler = () => {};
-	const { approve, initConnector } = useConnect();
+	const { initConnector } = useConnect();
+	//console.log("initConnector", initConnector);
 
 	//const approveSingleDepo = () => {};
 

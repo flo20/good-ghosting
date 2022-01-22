@@ -1,62 +1,77 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ethers } from "ethers";
-//import ghostContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
+import ghostSmartContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
 import daiSmartContract from "../../../assets/abi/ABI-dai.json";
 import { UserContext } from "../../../App";
 
 const useConnect = () => {
 	const [approve, setApprove] = useState(false);
 	const [joinedGame, setJoinedGame] = useState(false);
+	const [approvedTransaction, setApprovedTransaction] = useState("");
 
 	const userAddress = useContext(UserContext);
 	//connecting to ethereum blockchain
+
+	//console.log("ghostAddress", ghostAbi);
+
 	const initConnector = async () => {
 		try {
+			//Connecting to the DAI Contract
 			const customHttpProvider = new ethers.providers.Web3Provider(
 				window.ethereum
 			);
 
-			const signer = customHttpProvider.getSigner();
 			const daiContractAddress = process.env.REACT_APP_DAI_CONTRACT_ADDRESS;
-
 			const daiContract = new ethers.Contract(
 				daiContractAddress, //dai address
-				daiSmartContract.abi, //dia
+				daiSmartContract.abi, //dia abi
 				customHttpProvider
 			);
+
+			const ghostContractAddress = process.env.REACT_APP_GHOST_ADDRESS;
+			const ghostContract = new ethers.Contract(
+				ghostContractAddress,
+				ghostSmartContract.abi,
+				customHttpProvider
+			);
+			//Sending DAI
+			const signer = customHttpProvider.getSigner();
+			//const signerAddress = signer.getAddress();
 			const daiWithSigner = daiContract.connect(signer);
-
-			//dai set up
-
-			// Each DAI has 18 decimal places
-			const dai = ethers.utils.parseUnits("1.0", 18);
-
-			const signerAddress = () => {
-				signer.getAddress();
-			};
-			console.log("signerAddress", signerAddress);
-
+			const ghostWithSigner = ghostContract.connect(signer);
+			console.log("ghostWithSigner", ghostWithSigner);
+			const dai = ethers.utils.parseUnits("1.0", 18); // Each DAI has 18 decimal places
 			const approval = await daiWithSigner.approve(userAddress, dai);
 			await daiWithSigner.transferFrom(userAddress, daiContractAddress, dai);
-			// Receive an event when ANY transfer occurs
-			approval.on("Approval", (from, to, amount, event) => {
-				console.log(
-					`${from} sent ${ethers.utils.formatEther(amount)} to ${to}`
-				);
-				setApprove(true);
-			});
-			//console.log(sendDai);
+			console.log("approval", approval);
+			const joinGameResponse = await ghostWithSigner.joinGame();
+			console.log("joinGameResponse", joinGameResponse);
+			// const getBalance = await daiWithSigner.balanceOf(userAddress);
+			// console.log("getBalance", getBalance);
 
+			// Receive an event when ANY  approval occurs
+			daiWithSigner.on("Approval", (from, to, amount, event) => {
+				//console.log({ from, to, amount, event });
+				// setApprove(true);
+				// setApprovedTransaction(approve);
+				console.log("Approval");
+			});
+
+			// Receive an event when ANY transfer occurs
 			daiContract.on("Transfer", (from, to, amount, event) => {
-				setJoinedGame(true);
 				console.log("transferred dai");
+				//setJoinedGame(true);
 			});
 		} catch (error) {
-			console.error(error);
+			console.log(error);
 		}
 	};
+	// useEffect(() => {
+	// 	initConnector();
+	// });
 
-	return { approve, joinedGame, initConnector };
+	//const handleTransfer = () => {};
+	return { approve, joinedGame, approvedTransaction, initConnector };
 };
 
 export default useConnect;

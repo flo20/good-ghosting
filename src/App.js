@@ -11,7 +11,7 @@ const App = () => {
 	const [userAccount, setUserAccount] = useState(null);
 
 	const handleAccountChange = (account) => {
-		console.log(account);
+		//console.log(account);
 		setUserAccount(account);
 	};
 	return (
