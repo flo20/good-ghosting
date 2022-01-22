@@ -23,7 +23,7 @@
 }
 
 .kovanNetwork {
-    background-color: #800080;
+    @apply bg-fuchsia-900 w-44 text-center text-sm rounded-md p-1
 }
 // .kovanNetwork {
 //     @apply bg-purple-400 rounded-full border-2 border-violet-200 border-solid w-32 h-8 text-center p-px text-violet-50 hover:bg-violet-50/[0.3];

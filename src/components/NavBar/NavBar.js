@@ -81,7 +81,9 @@ const NavBar = ({ onAccountSelected }) => {
 						<SwitchNetwork network={network} />
 					) : (
 						<div className={styles.kovanNetwork}>
-							{network}
+							<p>
+								Connected to <strong>{network}</strong>
+							</p>
 							{/* <button
 								type="button"
 								//onClick={connectWalletHandler}
