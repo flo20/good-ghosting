@@ -3,7 +3,7 @@
 }
 
 .confirmationBox {
-    @apply relative inline-block w-6/12  rounded-md p-24 overflow-hidden shadow-gray-800 bg-white transition-all duration-75 ease-linear;
+    @apply relative inline-block w-6/12  rounded-md p-10 overflow-hidden shadow-gray-800 bg-white transition-all duration-75 ease-linear;
 }
 
 .approveButton {
@@ -12,4 +12,8 @@
 
 .closeModal {
     @apply absolute text-fuchsia-900  top-1.5 right-1.5 hover:text-fuchsia-600 cursor-pointer text-2xl;
+}
+
+.approveHeading{
+    @apply text-fuchsia-900 font-black p-4 text-2xl
 }

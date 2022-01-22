@@ -20,12 +20,15 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 					}}
 					className={styles.closeModal}
 				/>
+				<h1 className={styles.approveHeading}>
+					Approve To Join Our Savings Pool
+				</h1>
 				<button className={styles.approveButton} onClick={initConnector}>
 					Approve single deposit
 				</button>
-				<button className={styles.approveButton}>
+				{/* <button className={styles.approveButton}>
 					Approve total deposit amount
-				</button>
+				</button> */}
 			</div>
 		</div>
 	);

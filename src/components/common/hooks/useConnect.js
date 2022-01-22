@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext} from "react";
 import { ethers } from "ethers";
 import ghostSmartContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
 import daiSmartContract from "../../../assets/abi/ABI-dai.json";
@@ -8,6 +8,7 @@ const useConnect = () => {
 	const [approve, setApprove] = useState(false);
 	const [joinedGame, setJoinedGame] = useState(false);
 	const [approvedTransaction, setApprovedTransaction] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
 
 	const userAddress = useContext(UserContext);
 	//connecting to ethereum blockchain
