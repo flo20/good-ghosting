@@ -1,44 +1,15 @@
 .modalWrapper {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(68, 68, 68, 0.8);
-    text-align: center;
-    transition: 0.5s ease all;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @apply fixed w-full h-full inset-0 bg-slate-800 opacity-90 text-center transition-all duration-75 ease-linear z-10 flex items-center justify-center;
 }
 
 .confirmationBox {
-    position: relative;
-    display: inline-block;
-    width: 500px;
-    border-radius: 4px;
-    padding: 4rem;
-    overflow: hidden;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 3px 3px rgba(0, 0, 0, 0.2);
-    background: #fff;
-    transition: 0.5s ease all;
+    @apply relative inline-block w-6/12  rounded-md p-24 overflow-hidden shadow-gray-800 bg-white transition-all duration-75 ease-linear;
 }
 
 .approveButton {
-    color: #bd3d3d;
+    @apply text-white bg-fuchsia-900 rounded-full   border-solid w-72  hover:bg-fuchsia-700 relative p-2 m-3;
 }
 
 .closeModal {
-    position: absolute;
-    right: 15px;
-    top: 12px;
-    font-size: 1.5em;
-    cursor: pointer;
-    color: #bd3d3d;
-    &:hover {
-        color: #f85346;
-    }
+    @apply absolute text-fuchsia-900  top-1.5 right-1.5 hover:text-fuchsia-600 cursor-pointer text-2xl;
 }

@@ -2,7 +2,7 @@
   @apply flex;
 }
 
-button {
+.toggleButton {
   @apply rounded-full border-2 border-violet-200 border-solid w-36 h-6 text-violet-50 hover:bg-violet-50/[0.3] relative;
 }
 
@@ -10,11 +10,11 @@ button {
   @apply bg-violet-50 h-5 w-7  border-2 rounded-full left-0 top-0 absolute transition duration-300 ease-linear;
 }
 
-button.on {
+.toggleButton.on {
   @apply bg-purple-400;
 }
 
-button.on .pin {
+.toggleButton.on .pin {
   @apply inset-x-36 left-28;
 }
 

@@ -42,12 +42,18 @@ const useConnect = () => {
 			console.log("ghostWithSigner", ghostWithSigner);
 			const dai = ethers.utils.parseUnits("1.0", 18); // Each DAI has 18 decimal places
 			const approval = await daiWithSigner.approve(userAddress, dai);
-			await daiWithSigner.transferFrom(userAddress, daiContractAddress, dai);
 			console.log("approval", approval);
-			const joinGameResponse = await ghostWithSigner.joinGame();
-			console.log("joinGameResponse", joinGameResponse);
+			await daiWithSigner.transferFrom(userAddress, daiContractAddress, dai);
+			//const joinGameResponse = await ghostWithSigner.joinGame();
+			const earlyWithdrawal = await ghostWithSigner.earlyWithdraw();
+			//console.log("joinGameResponse", joinGameResponse);
+			console.log("earlyWithdrawal", earlyWithdrawal);
 			// const getBalance = await daiWithSigner.balanceOf(userAddress);
 			// console.log("getBalance", getBalance);
+
+			// joinGameResponse.then(function (result) {
+			// 	console.log("result", result);
+			// });
 
 			// Receive an event when ANY  approval occurs
 			daiWithSigner.on("Approval", (from, to, amount, event) => {

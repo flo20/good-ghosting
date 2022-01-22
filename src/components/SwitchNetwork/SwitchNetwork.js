@@ -48,7 +48,7 @@ const SwitchNetwork = ({ network }) => {
 
 	return (
 		<div className={styles.switchContainer}>
-			<button className={on ? styles.on : styles.off} onClick={toggle}>
+			<button className={`${on ? styles.on : styles.off} ${styles.toggleButton}`} onClick={toggle}>
 				<span className={styles.pin} onClick={handleKovanSwitch} />
 				<div className={styles.switchInfo}>
 					{on && canceledSwitchRequest ? (
