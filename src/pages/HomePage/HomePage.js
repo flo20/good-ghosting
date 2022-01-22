@@ -16,13 +16,13 @@ const HomePage = () => {
 
 	return (
 		<div>
-			<button
+			{/* <button
 				type="button"
 				onClick={() => setShowJoinModal(true)}
 				className={styles.walletButton}
 			>
 				Join our game
-			</button>
+			</button> */}
 			{/* {approve ? (
 				<h1 style={{ color: "white" }}>Approved</h1>
 			) : (

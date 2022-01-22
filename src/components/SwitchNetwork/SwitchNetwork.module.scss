@@ -3,7 +3,7 @@
 }
 
 .toggleButton {
-  @apply rounded-full border-2 border-violet-200 border-solid w-36 h-6 text-violet-50 hover:bg-violet-50/[0.3] relative;
+  @apply rounded-full border-2 border-violet-200 border-solid w-40 h-6 text-violet-50 hover:bg-violet-50/[0.3] relative;
 }
 
 .pin {
@@ -11,19 +11,19 @@
 }
 
 .toggleButton.on {
-  @apply bg-purple-400;
+  @apply bg-purple-500 pr-7;
 }
 
 .toggleButton.on .pin {
-  @apply inset-x-36 left-28;
+  @apply inset-x-36 left-32;
 }
 
 .switchInfo {
-  @apply text-center pl-7;
+  @apply text-center pl-4;
 }
 
 .networkName {
-  @apply text-violet-50  text-xs pt-1 text-slate-600;
+  @apply text-violet-50  text-xs pt-1 text-slate-400;
 }
 
 .networkSwitch {
