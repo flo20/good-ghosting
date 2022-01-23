@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { ethers } from "ethers";
 import ghostSmartContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
 import daiSmartContract from "../../../assets/abi/ABI-dai.json";
+import ghostSmart from "../../../assets/ABI-smart.json";
 import { UserContext } from "../../../App";
 
 const useConnect = () => {
@@ -25,7 +26,7 @@ const useConnect = () => {
 	const ghostContractAddress = "0xc69a569405eae312ca13c2ed85a256fbe4992a35";
 	const ghostContract = new ethers.Contract(
 		ghostContractAddress,
-		ghostSmartContract.abi,
+		ghostSmart.abi,
 		customHttpProvider
 	);
 	//Sending DAI
@@ -37,7 +38,7 @@ const useConnect = () => {
 	const dai = ethers.utils.parseUnits("1.0", 18); // Each DAI has 18 decimal places
 
 	const handleTransfer = async () => {
-		await daiWithSigner.transferFrom(userAddress, daiContractAddress, dai);
+		await daiWithSigner.transferFrom(userAddress, ghostContractAddress, dai);
 	};
 
 	const handleJoinGame = async () => {
@@ -66,7 +67,8 @@ const useConnect = () => {
 
 	const initConnector = async () => {
 		try {
-			const approval = await daiWithSigner.approve(userAddress, dai);
+			//const approval = await daiWithSigner.approve(userAddress, dai);
+			const approval = await daiWithSigner.approve(ghostContractAddress, dai);
 			//console.log("approval", approval);
 
 			// const getBalance = await daiWithSigner.balanceOf(userAddress);
@@ -81,7 +83,7 @@ const useConnect = () => {
 					return state;
 				});
 				handleTransfer();
-				console.log("Approval"); //Add spinner for pending state
+				console.log("Approvals"); //Add spinner for pending state
 			});
 
 			// Receive an event when ANY transfer occurs
