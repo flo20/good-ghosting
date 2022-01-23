@@ -8,21 +8,21 @@ const HomePage = () => {
 	const [showJoinModal, setShowJoinModal] = useState(false);
 	const userAddress = useContext(UserContext);
 
-	const { approve, approvedTransaction } = useConnect();
+	const { approve, approvedTransaction, joinedGame } = useConnect();
 
 	// useEffect(() => {
-	// 	console.log("connect hook", approve, approvedTransaction, userAddress);
+	console.log(
+		"connect hook",
+		approve,
+		approvedTransaction,
+		userAddress,
+		joinedGame
+	);
 	// });
 
 	return (
 		<div>
-			{/* <button
-				type="button"
-				onClick={() => setShowJoinModal(true)}
-				className={styles.walletButton}
-			>
-				Join our game
-			</button> */}
+			<button>Early withdrawal</button>
 			{/* {approve ? (
 				<h1 style={{ color: "white" }}>Approved</h1>
 			) : (
@@ -38,11 +38,6 @@ const HomePage = () => {
 					</div>
 				)
 			)} */}
-
-			<JoinModal
-				showJoinModal={showJoinModal}
-				setShowJoinModal={setShowJoinModal}
-			/>
 		</div>
 	);
 };

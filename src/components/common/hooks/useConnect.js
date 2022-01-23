@@ -1,4 +1,4 @@
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import { ethers } from "ethers";
 import ghostSmartContract from "../../../assets/abi/ABI-GoodGhostingWhitelisted.json";
 import daiSmartContract from "../../../assets/abi/ABI-dai.json";
@@ -11,73 +11,89 @@ const useConnect = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const userAddress = useContext(UserContext);
-	//connecting to ethereum blockchain
+	//Connecting to the DAI Contract
+	const customHttpProvider = new ethers.providers.Web3Provider(window.ethereum);
 
-	//console.log("ghostAddress", ghostAbi);
+	const daiContractAddress = process.env.REACT_APP_DAI_CONTRACT_ADDRESS;
+	const daiContract = new ethers.Contract(
+		daiContractAddress, //dai address
+		daiSmartContract.abi, //dia abi
+		customHttpProvider
+	);
+
+	//const ghostContractAddress = process.env.REACT_APP_GHOST_ADDRESS;
+	const ghostContractAddress = "0xc69a569405eae312ca13c2ed85a256fbe4992a35";
+	const ghostContract = new ethers.Contract(
+		ghostContractAddress,
+		ghostSmartContract.abi,
+		customHttpProvider
+	);
+	//Sending DAI
+	const signer = customHttpProvider.getSigner();
+	//const signerAddress = signer.getAddress();
+	const daiWithSigner = daiContract.connect(signer);
+	const ghostWithSigner = ghostContract.connect(signer);
+	//console.log("ghostWithSigner", ghostWithSigner);
+	const dai = ethers.utils.parseUnits("1.0", 18); // Each DAI has 18 decimal places
+
+	const handleTransfer = async () => {
+		await daiWithSigner.transferFrom(userAddress, daiContractAddress, dai);
+	};
+
+	const handleJoinGame = async () => {
+		try {
+			await ghostWithSigner.joinGame();
+			//const earlyWithdrawal = await ghostWithSigner.earlyWithdraw();
+			//console.log("joinGameResponse", joinGameResponse);
+			//console.log("earlyWithdrawal", earlyWithdrawal);
+
+			ghostWithSigner.on("JoinedGame", (player, amount) => {
+				console.log("joined", { player, amount });
+				setJoinedGame(true); //Add spinner for pending state
+				setJoinedGame((state) => {
+					console.log(state); // setState and get state right after calling setState
+					return state;
+				});
+			});
+		} catch (error) {
+			console.log(error);
+		}
+
+		// joinGameResponse.then(function (result) {
+		// 	console.log("result", result);
+		// });
+	};
 
 	const initConnector = async () => {
 		try {
-			//Connecting to the DAI Contract
-			const customHttpProvider = new ethers.providers.Web3Provider(
-				window.ethereum
-			);
-
-			const daiContractAddress = process.env.REACT_APP_DAI_CONTRACT_ADDRESS;
-			const daiContract = new ethers.Contract(
-				daiContractAddress, //dai address
-				daiSmartContract.abi, //dia abi
-				customHttpProvider
-			);
-
-			const ghostContractAddress = process.env.REACT_APP_GHOST_ADDRESS;
-			const ghostContract = new ethers.Contract(
-				ghostContractAddress,
-				ghostSmartContract.abi,
-				customHttpProvider
-			);
-			//Sending DAI
-			const signer = customHttpProvider.getSigner();
-			//const signerAddress = signer.getAddress();
-			const daiWithSigner = daiContract.connect(signer);
-			const ghostWithSigner = ghostContract.connect(signer);
-			console.log("ghostWithSigner", ghostWithSigner);
-			const dai = ethers.utils.parseUnits("1.0", 18); // Each DAI has 18 decimal places
 			const approval = await daiWithSigner.approve(userAddress, dai);
-			console.log("approval", approval);
-			await daiWithSigner.transferFrom(userAddress, daiContractAddress, dai);
-			//const joinGameResponse = await ghostWithSigner.joinGame();
-			const earlyWithdrawal = await ghostWithSigner.earlyWithdraw();
-			//console.log("joinGameResponse", joinGameResponse);
-			console.log("earlyWithdrawal", earlyWithdrawal);
+			//console.log("approval", approval);
+
 			// const getBalance = await daiWithSigner.balanceOf(userAddress);
 			// console.log("getBalance", getBalance);
-
-			// joinGameResponse.then(function (result) {
-			// 	console.log("result", result);
-			// });
 
 			// Receive an event when ANY  approval occurs
 			daiWithSigner.on("Approval", (from, to, amount, event) => {
 				//console.log({ from, to, amount, event });
-				// setApprove(true);
-				// setApprovedTransaction(approve);
-				console.log("Approval");
+				setApprove(true);
+				setApprove((state) => {
+					console.log(state); //setState and get state right after calling setState
+					return state;
+				});
+				handleTransfer();
+				console.log("Approval"); //Add spinner for pending state
 			});
 
 			// Receive an event when ANY transfer occurs
-			daiContract.on("Transfer", (from, to, amount, event) => {
+			daiWithSigner.on("Transfer", (from, to, amount, event) => {
 				console.log("transferred dai");
-				//setJoinedGame(true);
+				handleJoinGame();
 			});
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	// useEffect(() => {
-	// 	initConnector();
-	// });
 
-	//const handleTransfer = () => {};
 	return { approve, joinedGame, approvedTransaction, initConnector };
 };
 
