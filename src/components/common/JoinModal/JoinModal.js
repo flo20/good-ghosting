@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./JoinModal.module.scss";
 import { FaWindowClose } from "react-icons/fa";
 import useConnect from "../hooks/useConnect";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 	//const approveSingleDepositHandler = () => {};
-	const { initConnector } = useConnect();
-	//console.log("initConnector", initConnector);
+	const { initConnector, handleJoinGame, approve, joinedGame } = useConnect();
 
-	//const approveSingleDepo = () => {};
+	//function showJoingame() {
+		if (
+			approve &&
+			window.sessionStorage.getItem("approve") === true &&
+			window.sessionStorage.getItem("joinedGame") !== true
+		) {
+		}
+	//}
 
 	if (!showJoinModal) return null;
 	return (
@@ -23,9 +29,16 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 				<h1 className={styles.approveHeading}>
 					Approve To Join Our Savings Pool
 				</h1>
-				<button className={styles.approveButton} onClick={initConnector}>
-					Approve single deposit
-				</button>
+
+				{approve && window.sessionStorage.getItem("approve") ? (
+					<button className={styles.approveButton} onClick={handleJoinGame}>
+						Join Game
+					</button>
+				) : (
+					<button className={styles.approveButton} onClick={initConnector}>
+						Approve single deposit
+					</button>
+				)}
 				{/* <button className={styles.approveButton}>
 					Approve total deposit amount
 				</button> */}

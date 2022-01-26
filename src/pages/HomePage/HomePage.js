@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./HomePage.module.scss";
 import JoinModal from "../../components/common/JoinModal/JoinModal";
 import useConnect from "../../components/common/hooks/useConnect";
@@ -10,19 +10,17 @@ const HomePage = () => {
 
 	const { approve, approvedTransaction, joinedGame } = useConnect();
 
-	// useEffect(() => {
-	console.log(
-		"connect hook",
-		approve,
-		approvedTransaction,
-		userAddress,
-		joinedGame
-	);
-	// });
+	// console.log(
+	// 	"connect hook",
+	// 	approve,
+	// 	approvedTransaction,
+	// 	userAddress,
+	// 	joinedGame
+	// );
 
 	return (
 		<div>
-			<button>Early withdrawal</button>
+			{/* <button>Early withdrawal</button> */}
 			{/* {approve ? (
 				<h1 style={{ color: "white" }}>Approved</h1>
 			) : (
