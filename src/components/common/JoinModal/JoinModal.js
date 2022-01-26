@@ -19,9 +19,6 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 			window.sessionStorage.getItem("joinedGame") !== true
 		) {
 		}
-		// return () => {
-		// 	cleanup
-		// };
 	}, [approve, joinedGame]);
 
 	if (!showJoinModal) return null;

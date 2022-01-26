@@ -32,14 +32,31 @@ const useConnect = () => {
 	const ghostWithSigner = ghostContract.connect(signer);
 	//console.log("ghostWithSigner", ghostWithSigner);
 	const dai = ethers.utils.parseUnits("1.0", 18); // Each DAI has 18 decimal places
-	const earlyWithdrawDai = ethers.utils.parseUnits("0.01", 18);
+
+	const initConnector = async () => {
+		try {
+			await daiWithSigner.approve(ghostContractAddress, dai);
+			// Receive an event when ANY  approval occurs
+			daiWithSigner.on("Approval", (owner, spender, value) => {
+				//console.log({ owner, spender, value });
+				setApprove(true);
+				setApprove((state) => {
+					//console.log(state); //setState and get state right after calling setState
+					return state;
+				});
+				window.sessionStorage.setItem("approve", approve);
+				//console.log("Approved"); //Add spinner for pending state
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleJoinGame = async () => {
 		try {
 			console.log(" start joining game");
 
 			await ghostWithSigner.joinGame();
-			//const earlyWithdrawal = await ghostWithSigner.earlyWithdraw();
 			console.log("joining game");
 			//console.log("earlyWithdrawal", earlyWithdrawal);
 
@@ -63,11 +80,15 @@ const useConnect = () => {
 		try {
 			console.log("start early withdrawal");
 			await ghostWithSigner.earlyWithdraw();
+			//const getFeeMethod = await ghostWithSigner.earlyWithdrawalFee;
+			//console.log("start early withdrawal fee", getFeeMethod);
+			//const getFee = await ghostWithSigner.earlyWithdrawalFee();
+			//console.log("start early withdrawal fee", getFee);
 
 			ghostWithSigner.on(
 				"EarlyWithdrawal",
 				(player, amount, totalGamePrincipal) => {
-					console.log("withdrawn early", earlyWithdrawDai, {
+					console.log("withdrawn early", {
 						player,
 						amount,
 						totalGamePrincipal,
@@ -81,25 +102,6 @@ const useConnect = () => {
 					console.log("withdrawn successfully");
 				}
 			);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const initConnector = async () => {
-		try {
-			await daiWithSigner.approve(ghostContractAddress, dai);
-			// Receive an event when ANY  approval occurs
-			daiWithSigner.on("Approval", (owner, spender, value) => {
-				console.log({ owner, spender, value });
-				setApprove(true);
-				setApprove((state) => {
-					//console.log(state); //setState and get state right after calling setState
-					return state;
-				});
-				window.sessionStorage.setItem("approve", approve);
-				console.log("Approved"); //Add spinner for pending state
-			});
 		} catch (error) {
 			console.log(error);
 		}
