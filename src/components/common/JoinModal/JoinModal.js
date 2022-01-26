@@ -4,17 +4,25 @@ import { FaWindowClose } from "react-icons/fa";
 import useConnect from "../hooks/useConnect";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
-	//const approveSingleDepositHandler = () => {};
-	const { initConnector, handleJoinGame, approve, joinedGame } = useConnect();
+	const {
+		initConnector,
+		handleJoinGame,
+		handleEarlyWithdrawal,
+		approve,
+		joinedGame,
+	} = useConnect();
 
-	//function showJoingame() {
+	useEffect(() => {
 		if (
 			approve &&
 			window.sessionStorage.getItem("approve") === true &&
 			window.sessionStorage.getItem("joinedGame") !== true
 		) {
 		}
-	//}
+		// return () => {
+		// 	cleanup
+		// };
+	}, [approve, joinedGame]);
 
 	if (!showJoinModal) return null;
 	return (
@@ -39,9 +47,12 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 						Approve single deposit
 					</button>
 				)}
-				{/* <button className={styles.approveButton}>
-					Approve total deposit amount
-				</button> */}
+				<button
+					className={styles.approveButton}
+					onClick={handleEarlyWithdrawal}
+				>
+					Early Withdrawal
+				</button>
 			</div>
 		</div>
 	);

@@ -87,15 +87,26 @@ const NavBar = ({ onAccountSelected }) => {
 								<Fragment>
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
-										{network === "Kovan" && (
-											<button
-												type="button"
-												onClick={() => setShowJoinModal(true)}
-												className={styles.walletButton}
-											>
-												Join our game
-											</button>
-										)}
+										{network === "Kovan" &&
+											window.sessionStorage.getItem("JoinedGame") !== true && (
+													<button
+														type="button"
+														onClick={() => setShowJoinModal(true)}
+														className={styles.walletButton}
+													>
+														Join our game
+													</button>
+												)}
+										{network === "Kovan" &&
+											window.sessionStorage.getItem("JoinedGame") === true && (
+													<button
+														type="button"
+														onClick={() => setShowJoinModal(true)}
+														className={styles.walletButton}
+													>
+														EarlyWithdraw
+													</button>
+												)}
 										<JoinModal
 											showJoinModal={showJoinModal}
 											setShowJoinModal={setShowJoinModal}
@@ -117,41 +128,6 @@ const NavBar = ({ onAccountSelected }) => {
 					</button>
 				)}
 			</div>
-			{/* <div className={styles.navItems}>
-				<div className={styles.buttonChange}>
-					{displayChangeButton ? (
-						<SwitchNetwork network={network} />
-					) : (
-						<Fragment>
-								<div className={styles.joinGameWrapper}>
-								<button
-									type="button"
-									onClick={() => setShowJoinModal(true)}
-									className={styles.walletButton}
-								>
-									Join our game
-								</button>
-								<JoinModal
-									showJoinModal={showJoinModal}
-									setShowJoinModal={setShowJoinModal}
-								/>
-							</div>
-							<div className={styles.kovanNetwork}>{network}</div>
-						</Fragment>
-					)}
-				</div>
-				<p className={styles.accountAddress}>{currentAccount}</p>
-
-				{!walletIsConnected && !currentAccount ? (
-					<button
-						type="button"
-						onClick={connectWalletHandler}
-						className={styles.walletButton}
-					>
-						Connect wallet
-					</button>
-				) : null}
-			</div> */}
 		</div>
 	);
 };
