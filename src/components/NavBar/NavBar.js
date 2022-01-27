@@ -5,7 +5,7 @@ import _ from "lodash";
 import styles from "./NavBar.module.scss";
 import logo from "../../assets/logo2.png";
 import JoinModal from "../common/JoinModal/JoinModal";
-import EarlyWithdraw from "../common/EarlyWithdraw/EarlyWithdraw";
+import EarlyWithdrawModal from "../common/EarlyWithdrawModal/EarlyWithdrawModal";
 
 const NavBar = ({ onAccountSelected }) => {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -89,7 +89,16 @@ const NavBar = ({ onAccountSelected }) => {
 								<Fragment>
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
-										{network === "Kovan" && (
+										{network === "Kovan" &&
+										window.sessionStorage.getItem("JoinedGame") === true ? (
+											<button
+												type="button"
+												onClick={() => setShowWithdrawalModal(true)}
+												className={styles.walletButton}
+											>
+												EarlyWithdraw
+											</button>
+										) : (
 											<button
 												type="button"
 												onClick={() => setShowJoinModal(true)}
@@ -98,20 +107,12 @@ const NavBar = ({ onAccountSelected }) => {
 												Join our game
 											</button>
 										)}
-										{network === "Kovan" && (
-											<button
-												type="button"
-												onClick={() => setShowWithdrawalModal(true)}
-												className={styles.walletButton}
-											>
-												EarlyWithdraw
-											</button>
-										)}
+
 										<JoinModal
 											showJoinModal={showJoinModal}
 											setShowJoinModal={setShowJoinModal}
 										/>
-										<EarlyWithdraw
+										<EarlyWithdrawModal
 											showWithdrawalModal={showWithdrawalModal}
 											setShowWithdrawalModal={setShowWithdrawalModal}
 										/>

@@ -40,13 +40,14 @@ const useConnect = () => {
 			// Receive an event when ANY  approval occurs
 			daiWithSigner.on("Approval", (owner, spender, value) => {
 				//console.log({ owner, spender, value });
-				setIsLoading(false)
 				setApprove(true);
 				setApprove((state) => {
 					//console.log(state); //setState and get state right after calling setState
 					return state;
 				});
+
 				window.sessionStorage.setItem("approve", approve);
+				setIsLoading(false);
 				//console.log("Approved"); //Add spinner for pending state
 			});
 		} catch (error) {
@@ -57,20 +58,22 @@ const useConnect = () => {
 	const handleJoinGame = async () => {
 		try {
 			console.log("start joining game");
-
 			await ghostWithSigner.joinGame();
+			//setIsLoading(true);
 			console.log("joining game");
 			//console.log("earlyWithdrawal", earlyWithdrawal);
 
 			ghostWithSigner.on("JoinedGame", (player, amount) => {
 				console.log("joined", { player, amount });
 				setJoinedGame(true); //Add spinner for pending state
-				window.sessionStorage.setItem("JoinedGame", true);
+				//window.sessionStorage.setItem("JoinedGame", true);
 				setJoinedGame((state) => {
 					//console.log(state); // setState and get state right after calling setState
 					return state;
 				});
-				//window.sessionStorage.setItem("joinedGame", joinedGame);
+				window.sessionStorage.setItem("joinedGame", joinedGame);
+				//setIsLoading(false);
+
 				console.log("joined successfully");
 			});
 		} catch (error) {

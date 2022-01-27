@@ -3,7 +3,7 @@ import { FaWindowClose } from "react-icons/fa";
 import useConnect from "../hooks/useConnect";
 import Spinner from "../Spinner/Spinner";
 
-import styles from "./EarlyWithdraw.module.scss";
+import styles from "./EarlyWithdrawModal.module.scss";
 
 const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 	const { handleEarlyWithdrawal } = useConnect();

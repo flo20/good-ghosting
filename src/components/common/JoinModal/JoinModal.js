@@ -5,21 +5,15 @@ import useConnect from "../hooks/useConnect";
 import Spinner from "../Spinner/Spinner";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
-	const {
-		initConnector,
-		handleJoinGame,
-		handleEarlyWithdrawal,
-		approve,
-		joinedGame,
-		isLoading,
-	} = useConnect();
-
+	const { initConnector, handleJoinGame, approve, joinedGame, isLoading } =
+		useConnect();
+	console.log("joined already", joinedGame);
 	// if (
 	// 	approve &&
 	// 	window.sessionStorage.getItem("approve") === true &&
 	// 	window.sessionStorage.getItem("joinedGame") !== true
 	// )
-	if (!showJoinModal) return null;
+		if (!showJoinModal) return null;
 	return (
 		<div className={styles.modalWrapper}>
 			<div className={styles.confirmationBox}>
@@ -32,26 +26,19 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 				<h1 className={styles.approveHeading}>
 					Approve To Join Our Savings Pool
 				</h1>
-
-				{
-					isLoading ? (
-						<Spinner />
-					) : approve && window.sessionStorage.getItem("approve") ? (
-						<button className={styles.approveButton} onClick={handleJoinGame}>
-							Join Game
-						</button>
-					) : (
-						<button className={styles.approveButton} onClick={initConnector}>
-							Approve single deposit
-						</button>
-					)
-
-					// ) : (
-					// 	<button className={styles.approveButton} onClick={initConnector}>
-					// 		Approve single deposit
-					// 	</button> }
-				}
-				
+				{isLoading ? (
+					<Spinner />
+				) : joinedGame && window.sessionStorage.getItem("joinedGame") ? (
+					<button className={styles.approveButton}>Successfully Joined!</button>
+				) : approve && window.sessionStorage.getItem("approve") ? (
+					<button className={styles.approveButton} onClick={handleJoinGame}>
+						Join Savings Pool
+					</button>
+				) : (
+					<button className={styles.approveButton} onClick={initConnector}>
+						Approve single deposit
+					</button>
+				)}
 			</div>
 		</div>
 	);
