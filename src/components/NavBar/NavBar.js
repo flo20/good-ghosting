@@ -5,6 +5,7 @@ import _ from "lodash";
 import styles from "./NavBar.module.scss";
 import logo from "../../assets/logo2.png";
 import JoinModal from "../common/JoinModal/JoinModal";
+import EarlyWithdraw from "../common/EarlyWithdraw/EarlyWithdraw";
 
 const NavBar = ({ onAccountSelected }) => {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -12,6 +13,7 @@ const NavBar = ({ onAccountSelected }) => {
 	const [displayChangeButton, setDisplayChangeButton] = useState(false);
 	const [walletIsConnected, setWalletConnected] = useState(false);
 	const [showJoinModal, setShowJoinModal] = useState(false);
+	const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
 
 	const networkChainIdToName = () => {
 		const chainId = window.ethereum.networkVersion;
@@ -87,29 +89,31 @@ const NavBar = ({ onAccountSelected }) => {
 								<Fragment>
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
-										{network === "Kovan" &&
-											window.sessionStorage.getItem("JoinedGame") !== true && (
-													<button
-														type="button"
-														onClick={() => setShowJoinModal(true)}
-														className={styles.walletButton}
-													>
-														Join our game
-													</button>
-												)}
-										{network === "Kovan" &&
-											window.sessionStorage.getItem("JoinedGame") === true && (
-													<button
-														type="button"
-														onClick={() => setShowJoinModal(true)}
-														className={styles.walletButton}
-													>
-														EarlyWithdraw
-													</button>
-												)}
+										{network === "Kovan" && (
+											<button
+												type="button"
+												onClick={() => setShowJoinModal(true)}
+												className={styles.walletButton}
+											>
+												Join our game
+											</button>
+										)}
+										{network === "Kovan" && (
+											<button
+												type="button"
+												onClick={() => setShowWithdrawalModal(true)}
+												className={styles.walletButton}
+											>
+												EarlyWithdraw
+											</button>
+										)}
 										<JoinModal
 											showJoinModal={showJoinModal}
 											setShowJoinModal={setShowJoinModal}
+										/>
+										<EarlyWithdraw
+											showWithdrawalModal={showWithdrawalModal}
+											setShowWithdrawalModal={setShowWithdrawalModal}
 										/>
 									</div>
 									<div className={styles.kovanNetwork}>{network}</div>

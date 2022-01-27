@@ -7,7 +7,7 @@ const useConnect = () => {
 	const [approve, setApprove] = useState(false);
 	const [joinedGame, setJoinedGame] = useState(false);
 	const [earlyWithdraw, setEarlyWithdraw] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 
 	//Connecting to the DAI Contract
 	const customHttpProvider = new ethers.providers.Web3Provider(window.ethereum);
@@ -35,10 +35,12 @@ const useConnect = () => {
 
 	const initConnector = async () => {
 		try {
+			setIsLoading(true);
 			await daiWithSigner.approve(ghostContractAddress, dai);
 			// Receive an event when ANY  approval occurs
 			daiWithSigner.on("Approval", (owner, spender, value) => {
 				//console.log({ owner, spender, value });
+				setIsLoading(false)
 				setApprove(true);
 				setApprove((state) => {
 					//console.log(state); //setState and get state right after calling setState
@@ -54,7 +56,7 @@ const useConnect = () => {
 
 	const handleJoinGame = async () => {
 		try {
-			console.log(" start joining game");
+			console.log("start joining game");
 
 			await ghostWithSigner.joinGame();
 			console.log("joining game");
@@ -113,6 +115,7 @@ const useConnect = () => {
 		initConnector,
 		handleJoinGame,
 		handleEarlyWithdrawal,
+		isLoading,
 	};
 };
 
