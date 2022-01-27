@@ -47,7 +47,7 @@ const useConnect = () => {
 				});
 
 				window.sessionStorage.setItem("approve", approve);
-				//setIsLoading(false);
+				setIsLoading(false);
 				//console.log("Approved"); //Add spinner for pending state
 			});
 		} catch (error) {
@@ -85,10 +85,7 @@ const useConnect = () => {
 		try {
 			console.log("start early withdrawal");
 			await ghostWithSigner.earlyWithdraw();
-			//const getFeeMethod = await ghostWithSigner.earlyWithdrawalFee;
-			//console.log("start early withdrawal fee", getFeeMethod);
-			//const getFee = await ghostWithSigner.earlyWithdrawalFee();
-			//console.log("start early withdrawal fee", getFee);
+			setIsLoading(true);
 
 			ghostWithSigner.on(
 				"EarlyWithdrawal",
@@ -104,6 +101,8 @@ const useConnect = () => {
 						return state;
 					});
 					window.sessionStorage.setItem("earlyWithdraw", earlyWithdraw);
+					setIsLoading(false);
+
 					console.log("withdrawn successfully");
 				}
 			);
@@ -115,6 +114,7 @@ const useConnect = () => {
 	return {
 		approve,
 		joinedGame,
+		earlyWithdraw,
 		initConnector,
 		handleJoinGame,
 		handleEarlyWithdrawal,

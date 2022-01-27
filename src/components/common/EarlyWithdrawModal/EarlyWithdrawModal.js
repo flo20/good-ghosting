@@ -6,7 +6,7 @@ import Spinner from "../Spinner/Spinner";
 import styles from "./EarlyWithdrawModal.module.scss";
 
 const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
-	const { handleEarlyWithdrawal } = useConnect();
+	const { handleEarlyWithdrawal, isLoading, earlyWithdraw } = useConnect();
 
 	// if (
 	// 	approve &&
@@ -24,13 +24,20 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 					className={styles.closeModal}
 				/>
 				<h1 className={styles.approveHeading}>Early Withdrawal</h1>
-
-				<button
-					className={styles.approveButton}
-					onClick={handleEarlyWithdrawal}
-				>
-					Early Withdrawal
-				</button>
+				{isLoading ? (
+					<Spinner />
+				) : earlyWithdraw && window.sessionStorage.getItem("earlyWithdraw") ? (
+					<button className={styles.approveButton}>
+						Successfully Withdrawn!
+					</button>
+				) : (
+					<button
+						className={styles.approveButton}
+						onClick={handleEarlyWithdrawal}
+					>
+						Early Withdrawal
+					</button>
+				)}
 			</div>
 		</div>
 	);

@@ -90,7 +90,7 @@ const NavBar = ({ onAccountSelected }) => {
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
 										{network === "Kovan" &&
-										window.sessionStorage.getItem("joinedGame") === true ? (
+										window.sessionStorage.getItem("earlyWithdraw") === true ? (
 											<button
 												type="button"
 												onClick={() => setShowWithdrawalModal(true)}
@@ -107,7 +107,13 @@ const NavBar = ({ onAccountSelected }) => {
 												Join our game
 											</button>
 										)}
-
+										{/* <button
+											type="button"
+											onClick={() => setShowWithdrawalModal(true)}
+											className={styles.walletButton}
+										>
+											EarlyWithdraw
+										</button> */}
 										<JoinModal
 											showJoinModal={showJoinModal}
 											setShowJoinModal={setShowJoinModal}
