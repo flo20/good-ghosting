@@ -97,7 +97,7 @@ const useConnect = () => {
 					});
 					setEarlyWithdraw(true);
 					setEarlyWithdraw((state) => {
-						//console.log(state);
+						window.sessionStorage.setItem("earlyWithdraw", true);
 						return state;
 					});
 					window.sessionStorage.setItem("earlyWithdraw", earlyWithdraw);
