@@ -90,7 +90,7 @@ const NavBar = ({ onAccountSelected }) => {
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
 										{network === "Kovan" &&
-										window.sessionStorage.getItem("JoinedGame") === true ? (
+										window.sessionStorage.getItem("joinedGame") === true ? (
 											<button
 												type="button"
 												onClick={() => setShowWithdrawalModal(true)}

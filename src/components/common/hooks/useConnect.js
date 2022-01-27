@@ -47,7 +47,7 @@ const useConnect = () => {
 				});
 
 				window.sessionStorage.setItem("approve", approve);
-				setIsLoading(false);
+				//setIsLoading(false);
 				//console.log("Approved"); //Add spinner for pending state
 			});
 		} catch (error) {
@@ -59,20 +59,20 @@ const useConnect = () => {
 		try {
 			console.log("start joining game");
 			await ghostWithSigner.joinGame();
-			//setIsLoading(true);
+			setIsLoading(true);
 			console.log("joining game");
 			//console.log("earlyWithdrawal", earlyWithdrawal);
 
 			ghostWithSigner.on("JoinedGame", (player, amount) => {
 				console.log("joined", { player, amount });
 				setJoinedGame(true); //Add spinner for pending state
-				//window.sessionStorage.setItem("JoinedGame", true);
+				window.sessionStorage.setItem("JoinedGame", true);
 				setJoinedGame((state) => {
 					//console.log(state); // setState and get state right after calling setState
 					return state;
 				});
 				window.sessionStorage.setItem("joinedGame", joinedGame);
-				//setIsLoading(false);
+				setIsLoading(false);
 
 				console.log("joined successfully");
 			});
