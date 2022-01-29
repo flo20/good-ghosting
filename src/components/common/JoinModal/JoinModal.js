@@ -36,7 +36,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 				) : joinedGame && window.sessionStorage.getItem("joinedGame") ? (
 					<Fragment>
 						<div className={styles.successIcon}>
-							<img src={success} alt="success" />
+							<img src={success} alt="success icon" />
 							<div className={styles.successMessageContainer}>
 								<p>Hooray!</p>
 								<p>You have successfully joined our savings pool!</p>

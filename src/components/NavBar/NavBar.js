@@ -66,7 +66,7 @@ const NavBar = ({ onAccountSelected }) => {
 	};
 
 	useEffect(() => {
-//		connectWalletHandler();
+		//		connectWalletHandler();
 		if (window.ethereum) {
 			window.ethereum.on("chainChanged", (_chainId) =>
 				window.location.reload()
@@ -161,6 +161,7 @@ const NavBar = ({ onAccountSelected }) => {
 								</Fragment>
 							)}
 						</div>
+
 						<p className={styles.accountAddress}>{currentAccount}</p>
 					</Fragment>
 				) : (
