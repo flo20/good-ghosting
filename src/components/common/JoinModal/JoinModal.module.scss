@@ -21,3 +21,7 @@
     //@function text-fuchsia-900 font-black p-4 text-2xl
     @apply font-black p-4 text-2xl;
 }
+
+.successMessage{
+    @apply text-lime-800;
+}

@@ -29,7 +29,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 				{isLoading ? (
 					<Spinner />
 				) : joinedGame && window.sessionStorage.getItem("joinedGame") ? (
-					<button className={styles.approveButton}>Successfully Joined!</button>
+					<p className={styles.successMessage}>Successfully Joined!</p>
 				) : approve && window.sessionStorage.getItem("approve") ? (
 					<button className={styles.approveButton} onClick={handleJoinGame}>
 						Join Savings Pool

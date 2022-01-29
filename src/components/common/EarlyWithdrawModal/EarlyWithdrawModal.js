@@ -27,9 +27,9 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 				{isLoading ? (
 					<Spinner />
 				) : earlyWithdraw && window.sessionStorage.getItem("earlyWithdraw") ? (
-					<button className={styles.approveButton}>
+					<b className={styles.successMessage}>
 						Successfully Withdrawn!
-					</button>
+					</b>
 				) : (
 					<button
 						className={styles.approveButton}
