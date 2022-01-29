@@ -8,6 +8,7 @@ const useConnect = () => {
 	const [joinedGame, setJoinedGame] = useState(false);
 	const [earlyWithdraw, setEarlyWithdraw] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	//Connecting to the DAI Contract
 	const customHttpProvider = new ethers.providers.Web3Provider(window.ethereum);
@@ -51,7 +52,10 @@ const useConnect = () => {
 				//console.log("Approved"); //Add spinner for pending state
 			});
 		} catch (error) {
+			setIsLoading(false);
 			console.log(error);
+			if (error.code === 4001)
+				return setErrorMessage("Transaction has been rejected");
 		}
 	};
 
@@ -77,7 +81,10 @@ const useConnect = () => {
 				console.log("joined successfully");
 			});
 		} catch (error) {
+			setIsLoading(false);
 			console.log(error);
+			if (error.code === 4001)
+				return setErrorMessage("Transaction has been rejected");
 		}
 	};
 
@@ -107,7 +114,10 @@ const useConnect = () => {
 				}
 			);
 		} catch (error) {
+			setIsLoading(false);
 			console.log(error);
+			if (error.code === 4001)
+				return setErrorMessage("Transaction has been rejected");
 		}
 	};
 
@@ -115,10 +125,11 @@ const useConnect = () => {
 		approve,
 		joinedGame,
 		earlyWithdraw,
+		isLoading,
+		errorMessage,
 		initConnector,
 		handleJoinGame,
 		handleEarlyWithdrawal,
-		isLoading,
 	};
 };
 

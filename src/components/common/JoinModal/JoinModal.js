@@ -6,9 +6,15 @@ import Spinner from "../Spinner/Spinner";
 import success from "../../../assets/success_icon.svg";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
-	const { initConnector, handleJoinGame, approve, joinedGame, isLoading } =
-		useConnect();
-	console.log("joined already", joinedGame);
+	const {
+		initConnector,
+		handleJoinGame,
+		approve,
+		joinedGame,
+		isLoading,
+		errorMessage,
+	} = useConnect();
+	//console.log("errorMessage", errorMessage);
 
 	if (!showJoinModal) return null;
 	return (
@@ -53,13 +59,19 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 						</button>
 					</Fragment>
 				) : approve && window.sessionStorage.getItem("approve") ? (
-					<button className={styles.approveButton} onClick={handleJoinGame}>
-						Join Game
-					</button>
+					<Fragment>
+						<button className={styles.approveButton} onClick={handleJoinGame}>
+							Join Game
+						</button>
+						<p className={styles.errorText}>{errorMessage}</p>
+					</Fragment>
 				) : (
-					<button className={styles.approveButton} onClick={initConnector}>
-						Approve single deposit
-					</button>
+					<Fragment>
+						<button className={styles.approveButton} onClick={initConnector}>
+							Approve single deposit
+						</button>
+						<p className={styles.errorText}>{errorMessage}</p>
+					</Fragment>
 				)}
 			</div>
 		</div>

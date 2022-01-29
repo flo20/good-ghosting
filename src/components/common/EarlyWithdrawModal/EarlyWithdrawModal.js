@@ -7,7 +7,7 @@ import withdraw from "../../../assets/withdraw_icon.svg";
 import styles from "./EarlyWithdrawModal.module.scss";
 
 const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
-	const { handleEarlyWithdrawal, isLoading, earlyWithdraw } = useConnect();
+	const { handleEarlyWithdrawal, isLoading, earlyWithdraw,errorMessage } = useConnect();
 
 	if (!showWithdrawalModal) return null;
 	return (
@@ -57,12 +57,15 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 						</button>
 					</Fragment>
 				) : (
-					<button
-						className={styles.approveButton}
-						onClick={handleEarlyWithdrawal}
-					>
-						Yes, withdraw anyway
-					</button>
+					<Fragment>
+						<button
+							className={styles.approveButton}
+							onClick={handleEarlyWithdrawal}
+						>
+							Yes, withdraw anyway
+						</button>
+						<p className={styles.errorText}>{errorMessage}</p>
+					</Fragment>
 				)}
 			</div>
 		</div>

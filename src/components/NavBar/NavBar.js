@@ -66,7 +66,7 @@ const NavBar = ({ onAccountSelected }) => {
 	};
 
 	useEffect(() => {
-		//		connectWalletHandler();
+		connectWalletHandler();
 		if (window.ethereum) {
 			window.ethereum.on("chainChanged", (_chainId) =>
 				window.location.reload()
@@ -121,42 +121,6 @@ const NavBar = ({ onAccountSelected }) => {
 											setShowWithdrawalModal={setShowWithdrawalModal}
 										/>
 									</div>
-									{/* <div className={styles.joinGameWrapper}>
-										{(network === "Kovan" &&
-											window.sessionStorage.getItem("earlyWithdraw") ===
-												true) ||
-											(window.sessionStorage.getItem("JoinedGame") !== true && (
-												<button
-													type="button"
-													onClick={() => setShowWithdrawalModal(true)}
-													className={styles.walletButton}
-												>
-													EarlyWithdraw
-												</button>
-											))}
-
-										{(network === "Kovan" &&
-											window.sessionStorage.getItem("joinedGame") === true) ||
-											(window.sessionStorage.getItem("earlyWithdraw") !==
-												true && (
-												<button
-													type="button"
-													onClick={() => setShowJoinModal(true)}
-													className={styles.walletButton}
-												>
-													Join our game
-												</button>
-											))}
-
-										<JoinModal
-											showJoinModal={showJoinModal}
-											setShowJoinModal={setShowJoinModal}
-										/>
-										<EarlyWithdrawModal
-											showWithdrawalModal={showWithdrawalModal}
-											setShowWithdrawalModal={setShowWithdrawalModal}
-										/>
-									</div> */}
 									<div className={styles.kovanNetwork}>{network}</div>
 								</Fragment>
 							)}

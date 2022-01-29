@@ -45,5 +45,9 @@
     @apply text-center mb-4
 }
 .earlyMessage{
-    @apply text-orange-700
+    @apply text-orange-900
+}
+
+.errorText{
+     @apply text-orange-700 text-xs
 }
