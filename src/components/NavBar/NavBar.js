@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
 import _ from "lodash";
 import styles from "./NavBar.module.scss";
-import logo from "../../assets/logo2.png";
+import logo from "../../assets/logo.svg";
 import JoinModal from "../common/JoinModal/JoinModal";
 import EarlyWithdrawModal from "../common/EarlyWithdrawModal/EarlyWithdrawModal";
 import useConnect from "../common/hooks/useConnect";
@@ -66,7 +66,7 @@ const NavBar = ({ onAccountSelected }) => {
 	};
 
 	useEffect(() => {
-		connectWalletHandler();
+//		connectWalletHandler();
 		if (window.ethereum) {
 			window.ethereum.on("chainChanged", (_chainId) =>
 				window.location.reload()

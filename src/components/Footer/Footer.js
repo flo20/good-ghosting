@@ -2,7 +2,7 @@ import React from "react";
 import { FaTwitterSquare, FaMedium, FaGithub, FaDiscord } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.scss";
-import logo from "../../assets/logo2.png";
+import logo from "../../assets/logo.svg";
 
 const Footer = () => {
 	return (
