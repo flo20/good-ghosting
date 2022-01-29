@@ -4,6 +4,7 @@ import styles from "./SwitchNetwork.module.scss";
 const SwitchNetwork = ({ network }) => {
 	const [on, setOnState] = useState(false);
 	const [canceledSwitchRequest, setCanceledSwitchRequest] = useState(false);
+	const [canceledSwitchMessage, setCanceledSwitchMessage] = useState(false);
 	const toggle = () => setOnState(true);
 
 	const handleKovanSwitch = async () => {
@@ -39,6 +40,7 @@ const SwitchNetwork = ({ network }) => {
 				try {
 					setOnState(false);
 					setCanceledSwitchRequest(true);
+					setCanceledSwitchMessage("Switch was canceled");
 				} catch (err) {
 					console.error(err);
 				}
@@ -47,22 +49,25 @@ const SwitchNetwork = ({ network }) => {
 	};
 
 	return (
-		<div className={styles.switchContainer}>
-			<button
-				className={`${on ? styles.on : styles.off} ${styles.toggleButton}`}
-				onClick={toggle}
-			>
-				<span className={styles.pin} onClick={handleKovanSwitch} />
-				<div className={styles.switchInfo}>
-					{on && canceledSwitchRequest ? (
-						" "
-					) : (
-						<p className={styles.networkSwitch}>Switch to Kovan</p>
-					)}
-					{on ? "" : <p className={styles.networkName}>{network}</p>}
-				</div>
-			</button>
-		</div>
+		<>
+			<p className={styles.errorText}>{canceledSwitchMessage}</p>
+			<div className={styles.switchContainer}>
+				<button
+					className={`${on ? styles.on : styles.off} ${styles.toggleButton}`}
+					onClick={toggle}
+				>
+					<span className={styles.pin} onClick={handleKovanSwitch} />
+					<div className={styles.switchInfo}>
+						{on && canceledSwitchRequest ? (
+							" "
+						) : (
+							<p className={styles.networkSwitch}>Switch to Kovan</p>
+						)}
+						{on ? "" : <p className={styles.networkName}>{network}</p>}
+					</div>
+				</button>
+			</div>
+		</>
 	);
 };
 

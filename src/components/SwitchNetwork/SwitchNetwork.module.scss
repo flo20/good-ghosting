@@ -1,5 +1,5 @@
 .switchContainer {
-  @apply flex;
+  @apply flex text-center justify-center;
 }
 
 .toggleButton {
@@ -28,4 +28,8 @@
 
 .networkSwitch {
   @apply text-xs p-0.5;
+}
+
+.errorText {
+  @apply text-orange-700 text-xs pl-5;
 }
