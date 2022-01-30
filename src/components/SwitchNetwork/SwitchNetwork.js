@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styles from "./SwitchNetwork.module.scss";
 
 const SwitchNetwork = ({ network }) => {
@@ -49,7 +49,7 @@ const SwitchNetwork = ({ network }) => {
 	};
 
 	return (
-		<>
+		<Fragment>
 			<p className={styles.errorText}>{canceledSwitchMessage}</p>
 			<div className={styles.switchContainer}>
 				<button
@@ -67,7 +67,7 @@ const SwitchNetwork = ({ network }) => {
 					</div>
 				</button>
 			</div>
-		</>
+		</Fragment>
 	);
 };
 
