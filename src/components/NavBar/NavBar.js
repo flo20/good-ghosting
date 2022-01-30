@@ -57,6 +57,7 @@ const NavBar = ({ onAccountSelected }) => {
 			});
 			const account = accounts[0];
 			setCurrentAccount(_.truncate(account, { length: 8 }));
+			window.localStorage.setItem("userAccount", account);
 			onAccountSelected(account);
 			setWalletConnected(true);
 			networkChainIdToName();
@@ -92,23 +93,21 @@ const NavBar = ({ onAccountSelected }) => {
 								<Fragment>
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
-										{network === "Kovan" && !joinedGame && (
-											<button
-												type="button"
-												onClick={() => setShowJoinModal(true)}
-												className={styles.walletButton}
-											>
-												Join our game
-											</button>
-										)}
-
-										{network === "Kovan" && !joinedGame && (
+										{network === "Kovan" && joinedGame ? (
 											<button
 												type="button"
 												onClick={() => setShowWithdrawalModal(true)}
 												className={styles.walletButton}
 											>
 												EarlyWithdraw
+											</button>
+										) : (
+											<button
+												type="button"
+												onClick={() => setShowJoinModal(true)}
+												className={styles.walletButton}
+											>
+												Join our game
 											</button>
 										)}
 

@@ -26,10 +26,11 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 					}}
 					className={styles.closeModal}
 				/>
+
 				{/* Switch Headings */}
-				{joinedGame && window.sessionStorage.getItem("joinedGame") ? (
+				{joinedGame && window.localStorage.getItem("joinedGame") ? (
 					""
-				) : approve && window.sessionStorage.getItem("approve") ? (
+				) : approve && window.localStorage.getItem("approve") ? (
 					<h1 className={styles.approveHeading}>Join Our Savings Pool</h1>
 				) : (
 					<h1 className={styles.approveHeading}>
@@ -39,7 +40,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 
 				{isLoading ? (
 					<Spinner />
-				) : joinedGame && window.sessionStorage.getItem("joinedGame") ? (
+				) : joinedGame && window.localStorage.getItem("joinedGame") ? (
 					<Fragment>
 						<div className={styles.successIcon}>
 							<img src={success} alt="success icon" />
@@ -58,7 +59,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 							Back to dashboard
 						</button>
 					</Fragment>
-				) : approve && window.sessionStorage.getItem("approve") ? (
+				) : approve && window.localStorage.getItem("approve") ? (
 					<Fragment>
 						<button className={styles.approveButton} onClick={handleJoinGame}>
 							Join Game

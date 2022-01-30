@@ -20,7 +20,7 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 					className={styles.closeModal}
 				/>
 				{/* Switch Headings */}
-				{earlyWithdraw && window.sessionStorage.getItem("earlyWithdraw") ? (
+				{earlyWithdraw && window.localStorage.getItem("earlyWithdraw") ? (
 					""
 				) : (
 					<Fragment>
@@ -38,7 +38,7 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 
 				{isLoading ? (
 					<Spinner />
-				) : earlyWithdraw && window.sessionStorage.getItem("earlyWithdraw") ? (
+				) : earlyWithdraw && window.localStorage.getItem("earlyWithdraw") ? (
 					<Fragment>
 						<div className={styles.successIcon}>
 							<img src={withdraw} alt="success" />
