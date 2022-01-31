@@ -14,7 +14,6 @@ const App = () => {
 	};
 	return (
 		<div>
-			Hello world
 			<UserContext.Provider value={userAccount}>
 				<Routes>
 					<Route path="/not-found" element={<NotFound />} />

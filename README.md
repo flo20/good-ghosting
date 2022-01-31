@@ -3,7 +3,7 @@
 ### Tools and languages
 
 * [Create React App](https://github.com/facebook/create-react-app)
-* [SASS](https://create-react-app.dev/docs/adding-a-sass-stylesheet/) and [CSS modules](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet)
+* [SASS](https://create-react-app.dev/docs/adding-a-sass-stylesheet/), [CSS modules](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet) and [Tailwind](https://tailwindcss.com/)
 * [Ethers.js ](https://docs.ethers.io/v5/)
 * [Jest](https://create-react-app.dev/docs/running-tests)
 * [Cypress](https://www.cypress.io/blog/2021/04/06/cypress-component-testing-react/)
@@ -25,7 +25,7 @@ git@github.com:flo20/good-ghosting.git
 yarn install
 ```
 
-5.  Run this command and this should start up in your local at http://localhost:3000
+5.  Run this command and this should start up in your browser at http://localhost:3000
 ```
 yarn start
 ```
