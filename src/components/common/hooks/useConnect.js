@@ -15,8 +15,6 @@ const useConnect = () => {
 		setEarlyWithdraw(JSON.parse(window.localStorage.getItem("earlyWithdraw")));
 	}, []);
 
-	//console.log("Useconnect joinedGame", joinedGame);
-
 	//Connecting to the DAI Contract
 	const customHttpProvider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -42,17 +40,18 @@ const useConnect = () => {
 
 	const initConnector = async () => {
 		try {
+			//Alert user when the dai is too low
 			setIsLoading(true);
 			await daiWithSigner.approve(ghostContractAddress, dai);
 			// Receive an event when ANY  approval occurs
 			daiWithSigner.on("Approval", (owner, spender, value) => {
 				//console.log({ owner, spender, value });
 				setApprove(true);
-				setApprove((state) => {
-					//console.log(state); //setState and get state right after calling setState
-					window.localStorage.setItem("approve", approve);
-					return state;
-				});
+				// setApprove((state) => {
+				// 	console.log(state); //setState and get state right after calling setState
+				// 	return state;
+				// });
+				window.localStorage.setItem("approve", approve);
 
 				setIsLoading(false);
 			});

@@ -121,6 +121,14 @@ const NavBar = ({ onAccountSelected }) => {
 									<div className={styles.kovanNetwork}>{network}</div>
 								</Fragment>
 							)}
+
+							{/* <button
+								type="button"
+								onClick={() => setShowWithdrawalModal(true)}
+								className={styles.walletButton}
+							>
+								EarlyWithdraw
+							</button> */}
 						</div>
 						<p className={styles.accountAddress}>{currentAccount}</p>
 					</Fragment>

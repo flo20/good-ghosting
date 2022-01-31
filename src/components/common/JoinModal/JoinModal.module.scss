@@ -7,24 +7,16 @@
 }
 
 .approveButton {
-    //background-color: #0f0f27;
     @apply text-white  rounded-full  bg-indigo-900 border-solid w-72  hover:bg-indigo-700 relative p-2 m-3;
 }
 
 .closeModal {
-   // color: #0f0f27;
     @apply absolute  text-indigo-900 top-1.5 right-1.5 hover:text-indigo-700 cursor-pointer text-2xl;
 }
 
 .approveHeading {
-    //color: #0f0f27;
-    //@function text-fuchsia-900 font-black p-4 text-2xl
     @apply font-black p-4 text-2xl text-indigo-900;
 }
-
-// .successMessage {
-//     @apply text-indigo-900;
-// }
 
 .successIcon {
     display: flex;
@@ -32,13 +24,12 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-        @apply text-indigo-900;
-
+    @apply text-indigo-900;
 }
-.successMessageContainer{
-    @apply m-4
+.successMessageContainer {
+    @apply m-4;
 }
 
-.errorText{
-     @apply text-orange-700 text-xs
+.errorText {
+    @apply text-orange-700 text-xs;
 }

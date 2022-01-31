@@ -17,6 +17,7 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 				<FaWindowClose
 					onClick={() => {
 						setShowWithdrawalModal(!showWithdrawalModal);
+						//window.localStorage.removeItem("earlyWithdraw");
 					}}
 					className={styles.closeModal}
 				/>

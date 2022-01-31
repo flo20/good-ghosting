@@ -24,6 +24,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 				<FaWindowClose
 					onClick={() => {
 						setShowJoinModal(!showJoinModal);
+						//window.localStorage.removeItem("joinedGame");
 					}}
 					className={styles.closeModal}
 				/>
