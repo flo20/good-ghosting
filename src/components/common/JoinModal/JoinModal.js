@@ -6,6 +6,7 @@ import Spinner from "../Spinner/Spinner";
 import success from "../../../assets/success_icon.svg";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
+	//console.log("showJoinModal", showJoinModal);
 	const {
 		initConnector,
 		handleJoinGame,
@@ -22,7 +23,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 			<div className={styles.confirmationBox}>
 				<FaWindowClose
 					onClick={() => {
-						setShowJoinModal(false);
+						setShowJoinModal(!showJoinModal);
 					}}
 					className={styles.closeModal}
 				/>
@@ -52,7 +53,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 
 						<button
 							onClick={() => {
-								setShowJoinModal(false);
+								setShowJoinModal(!showJoinModal);
 							}}
 							className={styles.approveButton}
 						>

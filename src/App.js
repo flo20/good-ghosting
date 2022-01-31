@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "./pages/HomePage/HomePage";
+import HomePage from "./components/pages/HomePage/HomePage";
 import NotFound from "./components/NotFound/NotFound";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";

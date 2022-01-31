@@ -7,7 +7,8 @@ import withdraw from "../../../assets/withdraw_icon.svg";
 import styles from "./EarlyWithdrawModal.module.scss";
 
 const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
-	const { handleEarlyWithdrawal, isLoading, earlyWithdraw,errorMessage } = useConnect();
+	const { handleEarlyWithdrawal, isLoading, earlyWithdraw, errorMessage } =
+		useConnect();
 
 	if (!showWithdrawalModal) return null;
 	return (
@@ -15,7 +16,7 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 			<div className={styles.confirmationBox}>
 				<FaWindowClose
 					onClick={() => {
-						setShowWithdrawalModal(false);
+						setShowWithdrawalModal(!showWithdrawalModal);
 					}}
 					className={styles.closeModal}
 				/>
@@ -49,7 +50,7 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 						</div>
 						<button
 							onClick={() => {
-								setShowWithdrawalModal(false);
+								setShowWithdrawalModal(!showWithdrawalModal);
 							}}
 							className={styles.approveButton}
 						>

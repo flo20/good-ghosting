@@ -15,6 +15,8 @@ const useConnect = () => {
 		setEarlyWithdraw(JSON.parse(window.localStorage.getItem("earlyWithdraw")));
 	}, []);
 
+	//console.log("Useconnect joinedGame", joinedGame);
+
 	//Connecting to the DAI Contract
 	const customHttpProvider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -52,7 +54,6 @@ const useConnect = () => {
 					return state;
 				});
 
-				//window.sessionStorage.setItem("approve", approve);
 				setIsLoading(false);
 			});
 		} catch (error) {

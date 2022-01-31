@@ -6,7 +6,6 @@ import styles from "./NavBar.module.scss";
 import logo from "../../assets/logo.svg";
 import JoinModal from "../common/JoinModal/JoinModal";
 import EarlyWithdrawModal from "../common/EarlyWithdrawModal/EarlyWithdrawModal";
-import useConnect from "../common/hooks/useConnect";
 
 const NavBar = ({ onAccountSelected }) => {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -15,8 +14,6 @@ const NavBar = ({ onAccountSelected }) => {
 	const [walletIsConnected, setWalletConnected] = useState(false);
 	const [showJoinModal, setShowJoinModal] = useState(false);
 	const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
-
-	const { joinedGame } = useConnect();
 
 	const networkChainIdToName = () => {
 		const chainId = window.ethereum.networkVersion;
@@ -93,7 +90,8 @@ const NavBar = ({ onAccountSelected }) => {
 								<Fragment>
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
-										{network === "Kovan" && joinedGame ? (
+										{network === "Kovan" &&
+										JSON.parse(localStorage.getItem("joinedGame")) ? (
 											<button
 												type="button"
 												onClick={() => setShowWithdrawalModal(true)}
@@ -124,7 +122,6 @@ const NavBar = ({ onAccountSelected }) => {
 								</Fragment>
 							)}
 						</div>
-
 						<p className={styles.accountAddress}>{currentAccount}</p>
 					</Fragment>
 				) : (
