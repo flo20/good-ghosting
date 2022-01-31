@@ -2,10 +2,11 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
 import _ from "lodash";
-import styles from "./NavBar.module.scss";
 import logo from "../../assets/logo.svg";
 import JoinModal from "../common/JoinModal/JoinModal";
 import EarlyWithdrawModal from "../common/EarlyWithdrawModal/EarlyWithdrawModal";
+
+import styles from "./NavBar.module.scss";
 
 const NavBar = ({ onAccountSelected }) => {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -76,7 +77,7 @@ const NavBar = ({ onAccountSelected }) => {
 	});
 
 	return (
-		<div className={styles.navContainer}>
+		<nav className={styles.navContainer}>
 			<Link to="/">
 				<img src={logo} alt="logo" className={styles.logo} />
 			</Link>
@@ -121,14 +122,6 @@ const NavBar = ({ onAccountSelected }) => {
 									<div className={styles.kovanNetwork}>{network}</div>
 								</Fragment>
 							)}
-
-							{/* <button
-								type="button"
-								onClick={() => setShowWithdrawalModal(true)}
-								className={styles.walletButton}
-							>
-								EarlyWithdraw
-							</button> */}
 						</div>
 						<p className={styles.accountAddress}>{currentAccount}</p>
 					</Fragment>
@@ -142,7 +135,7 @@ const NavBar = ({ onAccountSelected }) => {
 					</button>
 				)}
 			</div>
-		</div>
+		</nav>
 	);
 };
 

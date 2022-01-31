@@ -1,15 +1,8 @@
-// import React, { Component } from "react"
-// import Enzyme, { shallow, configure } from "enzyme"
-// import NavBar from "../NavBar/NavBar"
-// import { EnzymeAdapter } from "enzyme"
+import { render, screen } from "@testing-library/react";
+import NavBar from "../NavBar/NavBar";
 
-// Enzyme.configure({ adapter: new EnzymeAdapter() })
-
-// describe("NavBar", () => {
-//     it("connects", () => {
-//         const component = shallow(<NavBar/>)
-//         component.find().simulate("click")
-
-//         //expect(component.state())
-//     })
-// })
+test("should render button", () => {
+	render(<NavBar />);
+	const buttonElement = screen.getByRole("walletButton");
+	expect(buttonElement).toBeInTheDocument();
+});
