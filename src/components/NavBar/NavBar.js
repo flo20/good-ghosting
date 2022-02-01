@@ -60,7 +60,7 @@ const NavBar = ({ onAccountSelected }) => {
 			setWalletConnected(true);
 			networkChainIdToName();
 		} catch (err) {
-			console.error(err);
+			//console.error(err);
 		}
 	};
 
