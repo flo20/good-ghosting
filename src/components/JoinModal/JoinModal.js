@@ -8,7 +8,6 @@ import Modal from "../common/Modal/Modal";
 import ModalButtons from "../common/Modal/ModalButtons";
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
-	//console.log("showJoinModal", showJoinModal);
 	const {
 		initConnector,
 		handleJoinGame,
@@ -17,7 +16,8 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 		isLoading,
 		errorMessage,
 	} = useConnect();
-	//console.log("errorMessage", errorMessage);
+	console.log("approve", approve);
+	console.log("joinedGame", joinedGame);
 
 	if (!showJoinModal) return null;
 	return (
@@ -25,20 +25,9 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 			modalErrorMessage={errorMessage}
 			handleCloseModalClick={() => setShowJoinModal(!showJoinModal)}
 		>
-			{/* Switch Headings */}
-			{joinedGame && window.localStorage.getItem("joinedGame") ? (
-				""
-			) : approve && window.localStorage.getItem("approve") ? (
-				<h1 className={styles.approveHeading}>Join Our Savings Pool</h1>
-			) : (
-				<h1 className={styles.approveHeading}>
-					Approve To Join Our Savings Pool
-				</h1>
-			)}
-
 			{isLoading ? (
 				<Spinner />
-			) : joinedGame && window.localStorage.getItem("joinedGame") ? (
+			) : approve && JSON.parse(localStorage.getItem("joinedGame")) ? (
 				<Fragment>
 					<div className={styles.successIcon}>
 						<img src={success} alt="success icon" />
@@ -55,15 +44,21 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 					/>
 				</Fragment>
 			) : approve && window.localStorage.getItem("approve") ? (
-				<ModalButtons
-					handleButtonModalClick={handleJoinGame}
-					modalButtonDescription="Join Game"
-				/>
+				<Fragment>
+					<ModalButtons
+						handleButtonModalClick={handleJoinGame}
+						modalButtonHeading="Join Our Savings Pool"
+						modalButtonDescription="Join Game"
+					/>
+				</Fragment>
 			) : (
-				<ModalButtons
-					handleButtonModalClick={initConnector}
-					modalButtonDescription="Approve single deposit"
-				/>
+				<Fragment>
+					<ModalButtons
+						handleButtonModalClick={initConnector}
+						modalButtonHeading="Approve To Join Our Savings Pool"
+						modalButtonDescription="Approve single deposit"
+					/>
+				</Fragment>
 			)}
 		</Modal>
 	);

@@ -8,8 +8,7 @@ import Modal from "../common/Modal/Modal";
 import styles from "./EarlyWithdrawModal.module.scss";
 
 const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
-	const { handleEarlyWithdrawal, isLoading, earlyWithdraw, errorMessage } =
-		useConnect();
+	const { handleEarlyWithdrawal, isLoading, errorMessage } = useConnect();
 
 	if (!showWithdrawalModal) return null;
 	return (
@@ -17,26 +16,9 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 			modalErrorMessage={errorMessage}
 			handleCloseModalClick={() => setShowWithdrawalModal(!showWithdrawalModal)}
 		>
-			{/* Switch Headings */}
-			{earlyWithdraw && window.localStorage.getItem("earlyWithdraw") ? (
-				""
-			) : (
-				<Fragment>
-					<div className={styles.headingContainer}>
-						<h2 className={styles.approveHeading}>
-							Are you sure you want to withdraw early ?
-						</h2>
-						<p className={styles.earlyMessage}>
-							Early withdrawal incurs a <strong>fee of 1% </strong>and make you
-							loose the game
-						</p>
-					</div>
-				</Fragment>
-			)}
-
 			{isLoading ? (
 				<Spinner />
-			) : earlyWithdraw && window.localStorage.getItem("earlyWithdraw") ? (
+			) : JSON.parse(window.localStorage.getItem("earlyWithdraw")) ? (
 				<Fragment>
 					<div className={styles.successIcon}>
 						<img src={withdraw} alt="success" />
@@ -53,12 +35,12 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 					/>
 				</Fragment>
 			) : (
-				<Fragment>
-					<ModalButtons
-						handleButtonModalClick={handleEarlyWithdrawal}
-						modalButtonDescription="Yes, withdraw anyway"
-					/>
-				</Fragment>
+				<ModalButtons
+					modalButtonSubHeading="Are you sure you want to withdraw early ?"
+					caption="Early withdrawal incurs a fee of 1% and make you loose the game"
+					handleButtonModalClick={handleEarlyWithdrawal}
+					modalButtonDescription="Yes, withdraw anyway"
+				/>
 			)}
 		</Modal>
 	);

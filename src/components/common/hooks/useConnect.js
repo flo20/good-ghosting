@@ -47,19 +47,14 @@ const useConnect = () => {
 			daiWithSigner.on("Approval", (owner, spender, value) => {
 				//console.log({ owner, spender, value });
 				setApprove(true);
-				// setApprove((state) => {
-				// 	console.log(state); //setState and get state right after calling setState
-				// 	return state;
-				// });
 				window.localStorage.setItem("approve", approve);
-
 				setIsLoading(false);
 			});
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
 			if (error.code === 4001)
-				return setErrorMessage("Transaction has been rejected");
+				return setErrorMessage("Transaction was rejected");
 		}
 	};
 
@@ -76,14 +71,13 @@ const useConnect = () => {
 				window.localStorage.setItem("joinedGame", true);
 				window.localStorage.setItem("earlyWithdraw", false);
 				setIsLoading(false);
-
 				console.log("joined successfully");
 			});
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
 			if (error.code === 4001)
-				return setErrorMessage("Transaction has been rejected");
+				return setErrorMessage("Transaction was rejected");
 			if (error.code === -32603)
 				return setErrorMessage("Insufficient funds for transaction");
 		}
@@ -120,7 +114,7 @@ const useConnect = () => {
 			setIsLoading(false);
 			console.log(error);
 			if (error.code === 4001)
-				return setErrorMessage("Transaction has been rejected");
+				return setErrorMessage("Transaction was rejected");
 		}
 	};
 

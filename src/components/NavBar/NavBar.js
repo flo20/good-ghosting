@@ -106,13 +106,13 @@ const NavBar = ({ onAccountSelected }) => {
 											/>
 										)}
 
-										<button
+										{/* <button
 											type="button"
 											onClick={() => setShowWithdrawalModal(true)}
 											className={styles.walletButton}
 										>
 											EarlyWithdraw
-										</button>
+										</button> */}
 
 										<JoinModal
 											showJoinModal={showJoinModal}

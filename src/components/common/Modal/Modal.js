@@ -3,17 +3,7 @@ import { FaWindowClose } from "react-icons/fa";
 
 import styles from "./Modal.module.scss";
 
-const Modal = ({
-	handleCloseModalClick,
-	handleButtonModalClick,
-	modalButtonDescription,
-	modalErrorMessage,
-	children,
-	modalHeading,
-	modalSubHeading,
-	successImage,
-	successInfo,
-}) => {
+const Modal = ({ handleCloseModalClick, modalErrorMessage, children }) => {
 	return (
 		<div className={styles.modalWrapper}>
 			<div className={styles.confirmationBox}>

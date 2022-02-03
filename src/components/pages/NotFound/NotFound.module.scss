@@ -4,11 +4,7 @@
 }
 
 .imageWrapper {
-    display: flex;
-    flex-direction: column;
-    margin: 20rem;
-    justify-content: center;
-    align-items: center;
+    @apply text-center flex flex-col m-48 justify-center items-center;
 }
 
 .dashboardButton {
