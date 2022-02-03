@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
 import _ from "lodash";
 import logo from "../../assets/logo.svg";
-import JoinModal from "../common/JoinModal/JoinModal";
-import EarlyWithdrawModal from "../common/EarlyWithdrawModal/EarlyWithdrawModal";
+import JoinModal from "../JoinModal/JoinModal";
+import EarlyWithdrawModal from "../EarlyWithdrawModal/EarlyWithdrawModal";
 
 import styles from "./NavBar.module.scss";
+import Button from "../common/NavButtons/NavButton";
 
 const NavBar = ({ onAccountSelected }) => {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -16,6 +17,7 @@ const NavBar = ({ onAccountSelected }) => {
 	const [showJoinModal, setShowJoinModal] = useState(false);
 	const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
 
+	//console.log(currentAccount);
 	const networkChainIdToName = () => {
 		const chainId = window.ethereum.networkVersion;
 
@@ -65,7 +67,7 @@ const NavBar = ({ onAccountSelected }) => {
 	};
 
 	useEffect(() => {
-		connectWalletHandler();
+		//connectWalletHandler();
 		if (window.ethereum) {
 			window.ethereum.on("chainChanged", (_chainId) =>
 				window.location.reload()
@@ -93,22 +95,24 @@ const NavBar = ({ onAccountSelected }) => {
 										{/* display join game button when network is on kovan  */}
 										{network === "Kovan" &&
 										JSON.parse(localStorage.getItem("joinedGame")) ? (
-											<button
-												type="button"
-												onClick={() => setShowWithdrawalModal(true)}
-												className={styles.walletButton}
-											>
-												EarlyWithdraw
-											</button>
+											<Button
+												buttonDescription="EarlyWithdraw"
+												handleClick={() => setShowWithdrawalModal(true)}
+											/>
 										) : (
-											<button
-												type="button"
-												onClick={() => setShowJoinModal(true)}
-												className={styles.walletButton}
-											>
-												Join our game
-											</button>
+											<Button
+												buttonDescription="Join our game"
+												handleClick={() => setShowJoinModal(true)}
+											/>
 										)}
+
+										<button
+											type="button"
+											onClick={() => setShowWithdrawalModal(true)}
+											className={styles.walletButton}
+										>
+											EarlyWithdraw
+										</button>
 
 										<JoinModal
 											showJoinModal={showJoinModal}
@@ -126,13 +130,10 @@ const NavBar = ({ onAccountSelected }) => {
 						<p className={styles.accountAddress}>{currentAccount}</p>
 					</Fragment>
 				) : (
-					<button
-						type="button"
-						onClick={connectWalletHandler}
-						className={styles.walletButton}
-					>
-						Connect wallet
-					</button>
+					<Button
+						buttonDescription="Connect wallet"
+						handleClick={connectWalletHandler}
+					/>
 				)}
 			</div>
 		</nav>

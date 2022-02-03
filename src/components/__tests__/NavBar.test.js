@@ -18,13 +18,29 @@ describe("NavBar buttons", () => {
 	test("should render Connect button", () => {
 		window.alert = () => {};
 
-		const mockHandler = jest.fn();
-		render(<MockNavBar connectWalletHandler={mockHandler} />);
+		render(<MockNavBar />);
 		const buttonElement = screen.getByRole("button");
-		fireEvent.click(buttonElement);
-		expect(mockHandler.mock.calls).toHaveLength(0);
 		expect(buttonElement).toBeVisible();
 		expect(buttonElement).toHaveTextContent("Connect wallet");
 	});
 
+	test("should render connecting to metamask and displaying the user account", () => {
+		window.alert = () => {};
+		const userAddress = {
+			currentAccount: "abcd",
+		};
+
+		const mockHandler = jest.fn();
+		render(<MockNavBar connectWalletHandler={mockHandler} />);
+		const buttonElement = screen.getByRole("button");
+		fireEvent.click(buttonElement);
+		expect(buttonElement).toHaveTextContent(userAddress.currentAccount);
+	});
+
+	//mocking what the metamask plugin does and making sure the option to switch to Kovan is displayed
+	//mock the switch network and ensure that the join game button appears  if user has already joined, the join button shouldn't appear  (Early withdrawal button should rather be displayed)
+
+	//test state changes from join game to early withdrawal :
+	//(when the user withdraws, they should see the Join our game button )
+	//(when the user has not yet joined the game, they should see the Join our game button )
 });
