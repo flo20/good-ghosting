@@ -56,7 +56,11 @@ const SwitchNetwork = ({ network }) => {
 					className={`${on ? styles.on : styles.off} ${styles.toggleButton}`}
 					onClick={toggle}
 				>
-					<span className={styles.pin} onClick={handleKovanSwitch} />
+					<span
+						className={styles.pin}
+						onClick={handleKovanSwitch}
+						data-testid="pinElement"
+					/>
 					<div className={styles.switchInfo}>
 						{on && canceledSwitchRequest ? (
 							" "

@@ -8,10 +8,10 @@ afterEach(() => {
 const MockNotFound = () => {
 	return (
 		<BrowserRouter>
-			<NotFound/>
+			<NotFound />
 		</BrowserRouter>
 	);
-}; 
+};
 
 test("should render the not found component", () => {
 	render(<MockNotFound />);
@@ -19,4 +19,3 @@ test("should render the not found component", () => {
 	expect(lostElement).toBeInTheDocument();
 	expect(lostElement).toHaveTextContent("Back to dashboard");
 });
-

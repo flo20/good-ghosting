@@ -3,21 +3,23 @@ import useConnect from "./../common/hooks/useConnect";
 import Spinner from "./../common/Spinner/Spinner";
 import success from "../../assets/success_icon.svg";
 
-import styles from "./JoinModal.module.scss";
 import Modal from "../common/Modal/Modal";
 import ModalButtons from "../common/Modal/ModalButtons";
+
+import styles from "./JoinModal.module.scss";
+
 
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 	const {
 		initConnector,
 		handleJoinGame,
 		approve,
-		joinedGame,
+		//joinedGame,
 		isLoading,
 		errorMessage,
 	} = useConnect();
-	console.log("approve", approve);
-	console.log("joinedGame", joinedGame);
+	// console.log("approve", approve);
+	// console.log("joinedGame", joinedGame);
 
 	if (!showJoinModal) return null;
 	return (

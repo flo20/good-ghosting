@@ -47,7 +47,10 @@ const useConnect = () => {
 			daiWithSigner.on("Approval", (owner, spender, value) => {
 				//console.log({ owner, spender, value });
 				setApprove(true);
-				window.localStorage.setItem("approve", approve);
+				setApprove((state) => {
+					window.localStorage.setItem("approve", approve);
+					return state;
+				});
 				setIsLoading(false);
 			});
 		} catch (error) {

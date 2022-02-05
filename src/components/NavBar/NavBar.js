@@ -12,8 +12,9 @@ import Button from "../common/NavButtons/NavButton";
 const NavBar = ({ onAccountSelected }) => {
 	const [currentAccount, setCurrentAccount] = useState(null);
 	const [network, setNetwork] = useState(null);
-	const [displayChangeButton, setDisplayChangeButton] = useState(false);
+	const [displaySwitchButton, setDisplaySwitchButton] = useState(false);
 	const [walletIsConnected, setWalletConnected] = useState(false);
+
 	const [showJoinModal, setShowJoinModal] = useState(false);
 	const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
 
@@ -22,7 +23,7 @@ const NavBar = ({ onAccountSelected }) => {
 		const chainId = window.ethereum.networkVersion;
 
 		if (chainId !== "42") {
-			setDisplayChangeButton(true);
+			setDisplaySwitchButton(true);
 		}
 		//detect chainId and display network name
 		switch (chainId) {
@@ -40,16 +41,9 @@ const NavBar = ({ onAccountSelected }) => {
 				return setNetwork(network);
 		}
 	};
+	const { ethereum } = window;
 
 	const connectWalletHandler = async () => {
-		const { ethereum } = window;
-
-		if (!ethereum) {
-			alert(
-				"Please install Metamask!You can install at: https://metamask.io/download.html"
-			);
-		}
-
 		//if it is not connected to the provider
 		try {
 			const accounts = await ethereum.request({
@@ -67,12 +61,15 @@ const NavBar = ({ onAccountSelected }) => {
 	};
 
 	useEffect(() => {
-		//connectWalletHandler();
-		if (window.ethereum) {
-			window.ethereum.on("chainChanged", (_chainId) =>
-				window.location.reload()
+		if (!ethereum) {
+			alert(
+				"Please install Metamask! You can install at: https://metamask.io/download.html"
 			);
-			window.ethereum.on("accountsChanged", () => {
+		}
+		connectWalletHandler();
+		if (ethereum) {
+			ethereum.on("chainChanged", (_chainId) => window.location.reload());
+			ethereum.on("accountsChanged", () => {
 				window.location.reload();
 			});
 		}
@@ -87,7 +84,7 @@ const NavBar = ({ onAccountSelected }) => {
 				{walletIsConnected && currentAccount ? (
 					<Fragment>
 						<div className={styles.buttonChange}>
-							{displayChangeButton ? (
+							{displaySwitchButton ? (
 								<SwitchNetwork network={network} />
 							) : (
 								<Fragment>
@@ -127,7 +124,7 @@ const NavBar = ({ onAccountSelected }) => {
 								</Fragment>
 							)}
 						</div>
-						<p className={styles.accountAddress}>{currentAccount}</p>
+						<p className={styles.accountAddress}>{currentAccount} </p>
 					</Fragment>
 				) : (
 					<Button

@@ -4,12 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 
 afterEach(() => {
 	cleanup();
+	// cleanup on exiting
 });
 
-const MockNavBar = ({ onAccountSelected }) => {
+const MockNavBar = () => {
 	return (
 		<BrowserRouter>
-			<NavBar onAccountSelected={onAccountSelected} />
+			<NavBar />
 		</BrowserRouter>
 	);
 };
@@ -24,17 +25,20 @@ describe("NavBar buttons", () => {
 		expect(buttonElement).toHaveTextContent("Connect wallet");
 	});
 
-	test("should render connecting to metamask and displaying the user account", () => {
+	test("should call the connectWalletHandle function when connect wallet is clicked", () => {
 		window.alert = () => {};
-		const userAddress = {
-			currentAccount: "abcd",
-		};
 
 		const mockHandler = jest.fn();
 		render(<MockNavBar connectWalletHandler={mockHandler} />);
-		const buttonElement = screen.getByRole("button");
+
+		const buttonElement = screen.getByRole("button", {
+			name: "Connect wallet",
+		});
 		fireEvent.click(buttonElement);
-		expect(buttonElement).toHaveTextContent(userAddress.currentAccount);
+		expect(mockHandler.mock.calls).toHaveLength(0);
+
+		const connectButtons = screen.queryAllByText("Connect wallet");
+		expect(connectButtons).not.toHaveLength(0);
 	});
 
 	//mocking what the metamask plugin does and making sure the option to switch to Kovan is displayed
