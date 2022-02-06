@@ -96,9 +96,6 @@ const useConnect = () => {
 					setShowErrorMessage(false);
 				}, 5000);
 			}
-
-			if (error.code === -32603)
-				return setErrorMessage("Insufficient funds for transaction");
 		}
 	};
 
