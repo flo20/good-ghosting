@@ -29,7 +29,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 		>
 			{isLoading ? (
 				<Spinner />
-			) : approve && JSON.parse(localStorage.getItem("joinedGame")) ? (
+			) : JSON.parse(localStorage.getItem("joinedGame")) ? (
 				<Fragment>
 					<div className={styles.successIcon}>
 						<img src={success} alt="success icon" />

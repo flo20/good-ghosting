@@ -44,7 +44,7 @@ const useConnect = () => {
 			setIsLoading(true);
 			await daiWithSigner.approve(ghostContractAddress, dai);
 			// Receive an event when ANY  approval occurs
-			daiWithSigner.on("Approval", (owner, spender, value) => {
+			daiWithSigner.on("Approval", () => {
 				//console.log({ owner, spender, value });
 				setApprove(true);
 				setApprove((state) => {
@@ -66,14 +66,21 @@ const useConnect = () => {
 			console.log("start joining game");
 			await ghostWithSigner.joinGame();
 			setIsLoading(true);
-			console.log("joining game");
 
-			ghostWithSigner.on("JoinedGame", (player, amount) => {
-				//console.log("joined", { player, amount });
-				setJoinedGame(true);
+			ghostWithSigner.on("JoinedGame", () => {
+				console.log("joined");
 				window.localStorage.setItem("joinedGame", true);
 				window.localStorage.setItem("earlyWithdraw", false);
+				window.localStorage.setItem("approve", false);
+
+				setEarlyWithdraw(!earlyWithdraw);
+				setJoinedGame(!joinedGame);
+				setApprove(!approve);
+
+
+				//setJoinedGame(true);
 				setIsLoading(false);
+				
 				console.log("joined successfully");
 			});
 		} catch (error) {
@@ -92,27 +99,21 @@ const useConnect = () => {
 			await ghostWithSigner.earlyWithdraw();
 			setIsLoading(true);
 
-			ghostWithSigner.on(
-				"EarlyWithdrawal",
-				(player, amount, totalGamePrincipal) => {
-					console.log("withdrawn early", {
-						player,
-						amount,
-						totalGamePrincipal,
-					});
-					setEarlyWithdraw(!earlyWithdraw); //true
-					setJoinedGame(!joinedGame);
-					setApprove(!approve);
+			ghostWithSigner.on("EarlyWithdrawal", () => {
+				console.log("withdrawn early");
 
-					window.localStorage.setItem("earlyWithdraw", true);
-					window.localStorage.setItem("joinedGame", false);
-					window.localStorage.setItem("approve", false);
+				window.localStorage.setItem("earlyWithdraw", true);
+				window.localStorage.setItem("joinedGame", false);
+				window.localStorage.setItem("approve", false);
 
-					setIsLoading(false);
+				setEarlyWithdraw(!earlyWithdraw);
+				setJoinedGame(!joinedGame);
+				setApprove(!approve);
 
-					console.log("withdrawn successfully");
-				}
-			);
+				setIsLoading(false);
+
+				console.log("withdrawn successfully");
+			});
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);

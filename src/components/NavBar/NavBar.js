@@ -44,6 +44,11 @@ const NavBar = ({ onAccountSelected }) => {
 	const { ethereum } = window;
 
 	const connectWalletHandler = async () => {
+		// if (!ethereum) {
+		// 	alert(
+		// 		"Please install Metamask! You can install at: https://metamask.io/download.html"
+		// 	);
+		// }
 		//if it is not connected to the provider
 		try {
 			const accounts = await ethereum.request({
@@ -102,14 +107,6 @@ const NavBar = ({ onAccountSelected }) => {
 												handleClick={() => setShowJoinModal(true)}
 											/>
 										)}
-
-										{/* <button
-											type="button"
-											onClick={() => setShowWithdrawalModal(true)}
-											className={styles.walletButton}
-										>
-											EarlyWithdraw
-										</button> */}
 
 										<JoinModal
 											showJoinModal={showJoinModal}
