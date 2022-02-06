@@ -107,7 +107,10 @@ const NavBar = ({ onAccountSelected }) => {
 												handleClick={() => setShowJoinModal(true)}
 											/>
 										)}
-
+										<Button
+											buttonDescription="EarlyWithdraw"
+											handleClick={() => setShowWithdrawalModal(true)}
+										/>
 										<JoinModal
 											showJoinModal={showJoinModal}
 											setShowJoinModal={setShowJoinModal}

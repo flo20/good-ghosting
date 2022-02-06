@@ -16,6 +16,16 @@ const EarlyWithdraw = ({ showWithdrawalModal, setShowWithdrawalModal }) => {
 			modalErrorMessage={errorMessage}
 			handleCloseModalClick={() => setShowWithdrawalModal(!showWithdrawalModal)}
 		>
+			{/* Switching headings */}
+			{!isLoading &&
+			JSON.parse(window.localStorage.getItem("earlyWithdraw")) ? (
+				""
+			) : isLoading ? (
+				<h1 className={styles.approveHeading}>
+					Processing early withdrawal...
+				</h1>
+			) : null}
+
 			{isLoading ? (
 				<Spinner />
 			) : JSON.parse(window.localStorage.getItem("earlyWithdraw")) ? (

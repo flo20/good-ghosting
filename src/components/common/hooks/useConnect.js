@@ -9,6 +9,7 @@ const useConnect = () => {
 	const [earlyWithdraw, setEarlyWithdraw] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [showErrorMessage, setShowErrorMessage] = useState(false);
 
 	useEffect(() => {
 		setJoinedGame(JSON.parse(window.localStorage.getItem("joinedGame")));
@@ -56,8 +57,13 @@ const useConnect = () => {
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
-			if (error.code === 4001)
-				return setErrorMessage("Transaction was rejected");
+			if (error.code === 4001) {
+				setShowErrorMessage(true);
+				setErrorMessage("Transaction was rejected");
+				setTimeout(() => {
+					setShowErrorMessage(false);
+				}, 5000);
+			}
 		}
 	};
 
@@ -71,23 +77,26 @@ const useConnect = () => {
 				console.log("joined");
 				window.localStorage.setItem("joinedGame", true);
 				window.localStorage.setItem("earlyWithdraw", false);
-				window.localStorage.setItem("approve", false);
 
 				setEarlyWithdraw(!earlyWithdraw);
 				setJoinedGame(!joinedGame);
 				setApprove(!approve);
 
-
-				//setJoinedGame(true);
 				setIsLoading(false);
-				
+
 				console.log("joined successfully");
 			});
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
-			if (error.code === 4001)
-				return setErrorMessage("Transaction was rejected");
+			if (error.code === 4001) {
+				setShowErrorMessage(true);
+				setErrorMessage("Transaction was rejected");
+				setTimeout(() => {
+					setShowErrorMessage(false);
+				}, 5000);
+			}
+
 			if (error.code === -32603)
 				return setErrorMessage("Insufficient funds for transaction");
 		}
@@ -117,8 +126,13 @@ const useConnect = () => {
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
-			if (error.code === 4001)
-				return setErrorMessage("Transaction was rejected");
+			if (error.code === 4001) {
+				setShowErrorMessage(true);
+				setErrorMessage("Transaction was rejected");
+				setTimeout(() => {
+					setShowErrorMessage(false);
+				}, 5000);
+			}
 		}
 	};
 
@@ -128,6 +142,7 @@ const useConnect = () => {
 		joinedGame,
 		isLoading,
 		errorMessage,
+		showErrorMessage,
 		initConnector,
 		handleJoinGame,
 		handleEarlyWithdrawal,

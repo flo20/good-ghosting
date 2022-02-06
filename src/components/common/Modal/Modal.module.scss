@@ -1,5 +1,5 @@
 .modalWrapper {
-    @apply fixed w-full h-full inset-0 bg-slate-800 opacity-90 text-center transition-all duration-75 ease-linear z-10 flex items-center justify-center;
+    @apply fixed w-full h-full inset-0 bg-slate-800 bg-opacity-90 text-center transition-all duration-75 ease-linear z-10 flex items-center justify-center;
 }
 
 .confirmationBox {

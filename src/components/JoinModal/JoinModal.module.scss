@@ -1,3 +1,7 @@
 .successIcon {
     @apply text-indigo-900 flex flex-col justify-center items-center text-center;
 }
+
+.approveHeading {
+    @apply font-black p-4 text-2xl text-indigo-900;
+}

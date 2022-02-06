@@ -8,25 +8,30 @@ import ModalButtons from "../common/Modal/ModalButtons";
 
 import styles from "./JoinModal.module.scss";
 
-
 const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 	const {
 		initConnector,
 		handleJoinGame,
-		approve,
-		//joinedGame,
 		isLoading,
 		errorMessage,
+		showErrorMessage,
 	} = useConnect();
-	// console.log("approve", approve);
-	// console.log("joinedGame", joinedGame);
 
 	if (!showJoinModal) return null;
 	return (
 		<Modal
-			modalErrorMessage={errorMessage}
+			modalErrorMessage={showErrorMessage && errorMessage}
 			handleCloseModalClick={() => setShowJoinModal(!showJoinModal)}
 		>
+			{/* Switching headings */}
+			{!isLoading && JSON.parse(localStorage.getItem("joinedGame")) ? (
+				""
+			) : isLoading && JSON.parse(localStorage.getItem("approve")) ? (
+				<h1 className={styles.approveHeading}> Joining game ... </h1>
+			) : isLoading ? (
+				<h1 className={styles.approveHeading}> Approving deposit ... </h1>
+			) : null}
+
 			{isLoading ? (
 				<Spinner />
 			) : JSON.parse(localStorage.getItem("joinedGame")) ? (
@@ -45,7 +50,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 						modalButtonDescription="Back to dashboard"
 					/>
 				</Fragment>
-			) : approve && window.localStorage.getItem("approve") ? (
+			) : JSON.parse(localStorage.getItem("approve")) ? (
 				<Fragment>
 					<ModalButtons
 						handleButtonModalClick={handleJoinGame}
