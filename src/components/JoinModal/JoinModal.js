@@ -12,6 +12,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 	const {
 		initConnector,
 		handleJoinGame,
+		approve,
 		isLoading,
 		errorMessage,
 		showErrorMessage,
@@ -26,7 +27,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 			{/* Switching headings */}
 			{!isLoading && JSON.parse(localStorage.getItem("joinedGame")) ? (
 				""
-			) : isLoading && JSON.parse(localStorage.getItem("approve")) ? (
+			) : isLoading && window.localStorage.getItem("approve") ? (
 				<h1 className={styles.approveHeading}> Joining game ... </h1>
 			) : isLoading ? (
 				<h1 className={styles.approveHeading}> Approving deposit ... </h1>
@@ -50,7 +51,7 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 						modalButtonDescription="Back to dashboard"
 					/>
 				</Fragment>
-			) : JSON.parse(localStorage.getItem("approve")) ? (
+			) : window.localStorage.getItem("approve") ? (
 				<Fragment>
 					<ModalButtons
 						handleButtonModalClick={handleJoinGame}

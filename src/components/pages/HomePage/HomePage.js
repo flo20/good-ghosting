@@ -8,7 +8,7 @@ const HomePage = ({ onAccountSelected }) => {
 	return (
 		<div>
 			<NavBar onAccountSelected={onAccountSelected} />
-			<body className={`${styles.bannerContainer}`}>
+			<div className={`${styles.bannerContainer}`}>
 				<div className={styles.bannerText}>
 					<h1 className="font-['Poppins']">
 						A better way to grow your savings.
@@ -26,7 +26,7 @@ const HomePage = ({ onAccountSelected }) => {
 						className={styles.imageSize}
 					/>
 				</div>
-			</body>
+			</div>
 		</div>
 	);
 };

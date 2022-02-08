@@ -1,7 +1,6 @@
 .bannerContainer {
-    @apply flex justify-evenly items-center font-sans text-indigo-800;
+    @apply flex justify-evenly items-center font-sans text-indigo-800 bg-no-repeat;
     background-image: url("../../../assets/background.svg");
-    background-repeat: no-repeat;
 }
 
 .bannerText {
@@ -16,9 +15,7 @@
 }
 
 .imageSize {
-    width: 100rem;
-
-    @apply opacity-75;
-
-    // @apply w-full
+    @apply opacity-75 w-screen;
 }
+
+

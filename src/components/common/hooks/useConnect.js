@@ -46,7 +46,6 @@ const useConnect = () => {
 			await daiWithSigner.approve(ghostContractAddress, dai);
 			// Receive an event when ANY  approval occurs
 			daiWithSigner.on("Approval", () => {
-				//console.log({ owner, spender, value });
 				setApprove(true);
 				setApprove((state) => {
 					window.localStorage.setItem("approve", approve);
@@ -56,7 +55,6 @@ const useConnect = () => {
 			});
 		} catch (error) {
 			setIsLoading(false);
-			console.log(error);
 			if (error.code === 4001) {
 				setShowErrorMessage(true);
 				setErrorMessage("Transaction was rejected");
@@ -69,12 +67,10 @@ const useConnect = () => {
 
 	const handleJoinGame = async () => {
 		try {
-			console.log("start joining game");
 			await ghostWithSigner.joinGame();
 			setIsLoading(true);
 
 			ghostWithSigner.on("JoinedGame", () => {
-				console.log("joined");
 				window.localStorage.setItem("joinedGame", true);
 				window.localStorage.setItem("earlyWithdraw", false);
 
@@ -83,12 +79,9 @@ const useConnect = () => {
 				setApprove(!approve);
 
 				setIsLoading(false);
-
-				console.log("joined successfully");
 			});
 		} catch (error) {
 			setIsLoading(false);
-			console.log(error);
 			if (error.code === 4001) {
 				setShowErrorMessage(true);
 				setErrorMessage("Transaction was rejected");
@@ -101,13 +94,10 @@ const useConnect = () => {
 
 	const handleEarlyWithdrawal = async () => {
 		try {
-			console.log("start early withdrawal");
 			await ghostWithSigner.earlyWithdraw();
 			setIsLoading(true);
 
 			ghostWithSigner.on("EarlyWithdrawal", () => {
-				console.log("withdrawn early");
-
 				window.localStorage.setItem("earlyWithdraw", true);
 				window.localStorage.setItem("joinedGame", false);
 				window.localStorage.setItem("approve", false);
@@ -117,12 +107,9 @@ const useConnect = () => {
 				setApprove(!approve);
 
 				setIsLoading(false);
-
-				console.log("withdrawn successfully");
 			});
 		} catch (error) {
 			setIsLoading(false);
-			console.log(error);
 			if (error.code === 4001) {
 				setShowErrorMessage(true);
 				setErrorMessage("Transaction was rejected");

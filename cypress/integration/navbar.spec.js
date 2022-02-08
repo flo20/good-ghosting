@@ -13,8 +13,8 @@ describe("GoodGhost app", function () {
 	});
 });
 
+//join game process
 describe("user can join game", function () {
-	//join game process
 	it("user can click join game button and approve single deposit", function () {
 		cy.findByRole("button", { name: /join our game/i }).click();
 		cy.findByRole("button", { name: /approve single deposit/i }).click();

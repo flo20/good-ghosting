@@ -101,6 +101,7 @@ const NavBar = ({ onAccountSelected }) => {
 												handleClick={() => setShowJoinModal(true)}
 											/>
 										)}
+
 										<JoinModal
 											showJoinModal={showJoinModal}
 											setShowJoinModal={setShowJoinModal}
