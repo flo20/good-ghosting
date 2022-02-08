@@ -33,7 +33,14 @@ yarn start
 ### How to run tests 
 
 ### Jest test
+```
+npm run test
+```
 ### Cypress test
+```
+ npm run cypress:open
+```
+
 
 
 
