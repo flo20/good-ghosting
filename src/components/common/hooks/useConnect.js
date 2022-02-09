@@ -19,15 +19,16 @@ const useConnect = () => {
 	//Connecting to the DAI Contract
 	const customHttpProvider = new ethers.providers.Web3Provider(window.ethereum);
 
-	const daiContractAddress = "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD";
+	const daiContractAddress = process.env.REACT_APP_DAI_CONTRACT_ADDRESS;
+	//const daiContractAddress = "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD";
 	const daiContract = new ethers.Contract(
 		daiContractAddress, //dai address
 		daiSmartContract.abi, //dai abi
 		customHttpProvider
 	);
 
-	//const ghostContractAddress = process.env.REACT_APP_GHOST_ADDRESS;
-	const ghostContractAddress = "0xc69a569405eae312ca13c2ed85a256fbe4992a35";
+	const ghostContractAddress = process.env.REACT_APP_GHOST_ADDRESS;
+	//const ghostContractAddress = "0xc69a569405eae312ca13c2ed85a256fbe4992a35";
 	const ghostContract = new ethers.Contract(
 		ghostContractAddress,
 		ghostSmartContract.abi,

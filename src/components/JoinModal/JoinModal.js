@@ -12,7 +12,6 @@ const JoinModal = ({ showJoinModal, setShowJoinModal }) => {
 	const {
 		initConnector,
 		handleJoinGame,
-		approve,
 		isLoading,
 		errorMessage,
 		showErrorMessage,

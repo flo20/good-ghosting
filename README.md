@@ -40,7 +40,9 @@ npm run test
 ```
  npm run cypress:open
 ```
-
-
+### Future enhancements
+* UI resposiveness and user experience
+* Improved test cases to check user's activities
+* Debugging test cases
 
 
