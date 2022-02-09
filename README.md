@@ -42,7 +42,7 @@ npm run test
 ```
 ### Future enhancements
 * UI resposiveness and user experience
-* Improved test cases to check user's activities
+* Improved test cases to check user activity
 * Debugging test cases
 
 
