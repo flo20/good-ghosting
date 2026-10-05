@@ -44,5 +44,6 @@ npm run test
 * UI resposiveness and user experience
 * Improved test cases to check user activity
 * Debugging test cases
+* Allow users to "Disconnect wallet"
 
 

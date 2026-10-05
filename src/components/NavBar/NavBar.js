@@ -1,83 +1,92 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Link } from "react-router-dom";
-import SwitchNetwork from "../SwitchNetwork/SwitchNetwork";
-import _ from "lodash";
-import logo from "../../assets/logo.svg";
-import JoinModal from "../JoinModal/JoinModal";
-import EarlyWithdrawModal from "../EarlyWithdrawModal/EarlyWithdrawModal";
+import { useState, useEffect,useCallback, Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import SwitchNetwork from '../SwitchNetwork/SwitchNetwork'
+import _ from 'lodash'
+import logo from '../../assets/logo.svg'
+import JoinModal from '../JoinModal/JoinModal'
+import EarlyWithdrawModal from '../EarlyWithdrawModal/EarlyWithdrawModal'
 
-import styles from "./NavBar.module.scss";
-import Button from "../common/NavButtons/NavButton";
+import styles from './NavBar.module.scss'
+import Button from '../common/NavButtons/NavButton'
 
 const NavBar = ({ onAccountSelected }) => {
-	const [currentAccount, setCurrentAccount] = useState(null);
-	const [network, setNetwork] = useState(null);
-	const [displaySwitchButton, setDisplaySwitchButton] = useState(false);
-	const [walletIsConnected, setWalletConnected] = useState(false);
+	const [currentAccount, setCurrentAccount] = useState(null)
+	const [network, setNetwork] = useState(null)
+	const [displaySwitchButton, setDisplaySwitchButton] = useState(false)
+	const [walletIsConnected, setWalletConnected] = useState(false)
 
-	const [showJoinModal, setShowJoinModal] = useState(false);
-	const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
+	const [showJoinModal, setShowJoinModal] = useState(false)
+	const [showWithdrawalModal, setShowWithdrawalModal] = useState(false)
 
-	//console.log(currentAccount);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const networkChainIdToName = () => {
-		const chainId = window.ethereum.networkVersion;
+		const chainId = window.ethereum.networkVersion
 
-		if (chainId !== "42") {
-			setDisplaySwitchButton(true);
+		if (chainId !== '42') {
+			setDisplaySwitchButton(true)
 		}
 		//detect chainId and display network name
 		switch (chainId) {
-			case "1":
-				return setNetwork("Ethereum Main");
-			case "3":
-				return setNetwork("Ropsten");
-			case "4":
-				return setNetwork("Rinkeby");
-			case "5":
-				return setNetwork("Goerli");
-			case "42":
-				return setNetwork("Kovan");
+			case '1':
+				return setNetwork('Ethereum Main')
+			case '3':
+				return setNetwork('Ropsten')
+			case '4':
+				return setNetwork('Rinkeby')
+			case '5':
+				return setNetwork('Goerli')
+			case '42':
+				return setNetwork('Kovan')
 			default:
-				return setNetwork(network);
+				return setNetwork(network)
 		}
-	};
-	const { ethereum } = window;
+	}
+	const { ethereum } = window
 
-	const connectWalletHandler = async () => {
+	const connectWalletHandler = useCallback(async () => {
 		try {
 			const accounts = await ethereum.request({
-				method: "eth_requestAccounts",
-			});
-			const account = accounts[0];
-			setCurrentAccount(_.truncate(account, { length: 8 }));
-			window.localStorage.setItem("userAccount", account);
-			onAccountSelected(account);
-			setWalletConnected(true);
-			networkChainIdToName();
+				method: 'eth_requestAccounts',
+			})
+			const account = accounts[0]
+			setCurrentAccount(_.truncate(account, { length: 8 }))
+			window.localStorage.setItem('userAccount', account)
+			onAccountSelected(account)
+			setWalletConnected(true)
+			networkChainIdToName()
 		} catch (err) {
-			console.error(err);
+			console.error(err)
 		}
-	};
+	},[ethereum,networkChainIdToName,onAccountSelected])
 
 	useEffect(() => {
 		if (!ethereum) {
-			alert(
-				"Please install Metamask! You can install at: https://metamask.io/download.html"
-			);
+			console.warn('MetaMask is not installed.')
+			return
 		}
-		connectWalletHandler();
-		if (ethereum) {
-			ethereum.on("chainChanged", (_chainId) => window.location.reload());
-			ethereum.on("accountsChanged", () => {
-				window.location.reload();
-			});
+		connectWalletHandler()
+
+		const handleChainChanged = () => {
+			window.location.reload()
 		}
-	});
+
+		const handleAccountsChanged = () => {
+			window.location.reload()
+		}
+		return () => {
+			ethereum.removeListener('chainChanged', handleChainChanged)
+			ethereum.removeListener('accountsChanged', handleAccountsChanged)
+		}
+	}, [connectWalletHandler, ethereum])
 
 	return (
 		<nav className={styles.navContainer}>
 			<Link to="/">
-				<img src={logo} alt="logo" className={styles.logo} />
+				<img
+					src={logo}
+					alt="logo"
+					className={styles.logo}
+				/>
 			</Link>
 			<div className={styles.navItems}>
 				{walletIsConnected && currentAccount ? (
@@ -89,8 +98,8 @@ const NavBar = ({ onAccountSelected }) => {
 								<Fragment>
 									<div className={styles.joinGameWrapper}>
 										{/* display join game button when network is on kovan  */}
-										{network === "Kovan" &&
-										JSON.parse(localStorage.getItem("joinedGame")) ? (
+										{network === 'Kovan' &&
+										JSON.parse(localStorage.getItem('joinedGame')) ? (
 											<Button
 												buttonDescription="EarlyWithdraw"
 												handleClick={() => setShowWithdrawalModal(true)}
@@ -125,7 +134,7 @@ const NavBar = ({ onAccountSelected }) => {
 				)}
 			</div>
 		</nav>
-	);
-};
+	)
+}
 
-export default NavBar;
+export default NavBar
